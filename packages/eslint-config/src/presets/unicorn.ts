@@ -16,13 +16,15 @@ const unicornOverrides: Linter.RulesRecord = {
   // 强制 `...(cond ? x : {})` 改写为 `...(cond && x)`。
   'unicorn/consistent-boolean-name': 'off',
   'unicorn/consistent-conditional-object-spread': 'off',
+  // 会误伤大量在模块顶层做初始化的单例/配置模块(如 axios 实例 + 拦截器注册)。
+  'unicorn/no-top-level-side-effects': 'off',
 }
 
 /**
  * unicorn 现代化增强层：基于 unicorn 推荐配置（覆盖其绝大多数规则）。
  *
  * @param files - 该层适用的文件匹配模式
- * @param strict - 是否启用默认关闭的 10 条激进规则
+ * @param strict - 是否启用默认关闭的 11 条激进规则
  */
 export function unicornPreset(files: string[], strict: boolean): Linter.Config[] {
   const recommended = eslintPluginUnicorn.configs.recommended as Linter.Config

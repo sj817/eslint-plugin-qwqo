@@ -23,7 +23,7 @@ export interface TypeScriptOptions {
 /** unicorn 规则层的细粒度配置。 */
 export interface UnicornOptions {
   /**
-   * 是否启用默认关闭的 10 条激进规则（filename-case、name-replacements 等）。
+   * 是否启用默认关闭的 11 条激进规则（filename-case、name-replacements 等）。
    * @default false
    */
   strict?: boolean
