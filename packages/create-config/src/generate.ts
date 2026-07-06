@@ -16,7 +16,7 @@ export function buildEslintConfig(answers: ScaffoldAnswers): string {
   if (environment === 'browser' || environment === 'both') lines.push('  browser: true,')
   if (typescript) lines.push('  typescript: true,')
   if (framework === 'react') lines.push('  react: true,')
-  if (framework === 'vue') lines.push('  vue: true,')
+  else if (framework === 'vue') lines.push('  vue: true,')
   lines.push('  importX: true,', '  perfectionist: true,')
 
   return `import lintspec from '@qwqo/eslint-config'

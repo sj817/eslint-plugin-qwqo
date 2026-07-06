@@ -121,7 +121,11 @@ let md = `# 全部规则
 `
 
 for (const layer of order) {
-  const rules = [...layers.get(layer).entries()].toSorted((a, b) => a[0].localeCompare(b[0]))
+  const rules = layers
+    .get(layer)
+    .entries()
+    .toArray()
+    .toSorted((a, b) => a[0].localeCompare(b[0]))
   if (rules.length === 0) continue
   md += `\n## ${layer}（${rules.length}）\n\n| 规则名称 | 规则 | 配置方式 | 级别 | 修复 | 建议 |\n| --- | --- | --- | --- | --- | --- |\n`
   for (const [rule, severity] of rules) {

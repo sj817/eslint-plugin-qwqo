@@ -116,7 +116,9 @@ function ensurePackageScripts(pkgPath: string): void {
   writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`, 'utf8')
 }
 
-main().catch((error: unknown) => {
+try {
+  await main()
+} catch (error) {
   p.log.error(String(error))
   process.exitCode = 1
-})
+}

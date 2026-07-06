@@ -1,6 +1,6 @@
 # unicorn
 
-基于 [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) 推荐集的现代化增强层，**默认开启**，已覆盖 178/182 条规则。
+基于 [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) 推荐集的现代化增强层，**默认开启**，覆盖其绝大多数规则。
 
 ```js
 import lintspec from '@qwqo/eslint-config'
@@ -8,7 +8,7 @@ import lintspec from '@qwqo/eslint-config'
 export default lintspec({ unicorn: true })
 ```
 
-默认关闭 8 条较激进的规则（`filename-case`、`prevent-abbreviations`、`no-null`、`no-array-reduce`、`no-nested-ternary`、`prefer-top-level-await`、`relative-url-style`、`numeric-separators-style`）。如需启用：
+默认关闭 10 条较激进的规则（`filename-case`、`name-replacements`、`no-null`、`no-array-reduce`、`no-nested-ternary`、`prefer-top-level-await`、`relative-url-style`、`numeric-separators-style`、`consistent-boolean-name`、`consistent-conditional-object-spread`）。如需启用：
 
 ```js
 export default lintspec({ unicorn: { strict: true } })

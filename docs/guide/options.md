@@ -73,7 +73,7 @@ export default lintspec({
 
 | 子选项                 | 默认值          | 作用                                                  |
 | ---------------------- | --------------- | ----------------------------------------------------- |
-| `unicorn.strict`       | `false`         | 启用默认关闭的 8 条激进规则                            |
+| `unicorn.strict`       | `false`         | 启用默认关闭的 10 条激进规则                           |
 | `typescript.typeAware` | `false`         | 启用需要类型信息的规则（依赖 tsconfig）                |
 | `importX.extensions`   | `true`          | 是否强制相对导入省略后缀；NodeNext 项目可设为 `false` |
 | `perfectionist.sort`   | `'line-length'` | import 排序方式，可设为 `'natural'` 切回自然顺序       |
