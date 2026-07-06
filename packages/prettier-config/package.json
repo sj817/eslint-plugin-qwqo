@@ -1,6 +1,6 @@
 {
   "name": "@qwqo/prettier-config",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "type": "module",
   "description": "qwqo Prettier shared config.",
   "license": "MIT",
