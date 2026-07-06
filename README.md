@@ -49,7 +49,7 @@ export default lintspec({
   unicorn: true, // 默认开启；{ strict: true } 启用激进规则
   typescript: true, // 或 { typeAware: true }
   importX: true, // 或 { extensions: false }
-  perfectionist: true, // 或 { sort: 'natural' }
+  perfectionist: true, // 或 { sort: 'natural', objects: false }
   react: true,
   vue: true,
   maxLines: 300, // 单文件最大行数；传 false 关闭
@@ -62,20 +62,20 @@ export default lintspec({
 
 ### 选项
 
-| 选项            | 类型                         | 默认值                      | 说明                                  |
-| --------------- | ---------------------------- | --------------------------- | ------------------------------------- |
-| `node`          | `boolean`                    | `false`                     | 启用 Node.js 全局变量                 |
-| `browser`       | `boolean`                    | `false`                     | 启用浏览器全局变量                    |
-| `unicorn`       | `boolean \| { strict? }`     | `true`                      | 启用 `eslint-plugin-unicorn` 层       |
-| `typescript`    | `boolean \| { typeAware? }`  | `false`                     | 启用 TypeScript 层                    |
-| `importX`       | `boolean \| { extensions? }` | `false`                     | 启用 `eslint-plugin-import-x` 层      |
-| `perfectionist` | `boolean \| { sort? }`       | `false`                     | 启用 `eslint-plugin-perfectionist` 层 |
-| `react`         | `boolean`                    | `false`                     | 启用 React 层                         |
-| `vue`           | `boolean`                    | `false`                     | 启用 Vue 层                           |
-| `maxLines`      | `number \| false`            | `300`                       | 单文件最大行数（跳过空行/注释）       |
-| `files`         | `string[]`                   | `['**/*.{js,mjs,cjs,jsx}']` | 基线层适用的文件匹配模式              |
-| `ignores`       | `string[]`                   | `[]`                        | 在默认忽略项之后追加的忽略模式        |
-| `overrides`     | `Linter.RulesRecord`         | `{}`                        | 优先级最高的规则覆盖                  |
+| 选项            | 类型                             | 默认值                      | 说明                                  |
+| --------------- | -------------------------------- | --------------------------- | ------------------------------------- |
+| `node`          | `boolean`                        | `false`                     | 启用 Node.js 全局变量                 |
+| `browser`       | `boolean`                        | `false`                     | 启用浏览器全局变量                    |
+| `unicorn`       | `boolean \| { strict? }`         | `true`                      | 启用 `eslint-plugin-unicorn` 层       |
+| `typescript`    | `boolean \| { typeAware? }`      | `false`                     | 启用 TypeScript 层                    |
+| `importX`       | `boolean \| { extensions? }`     | `false`                     | 启用 `eslint-plugin-import-x` 层      |
+| `perfectionist` | `boolean \| { sort?, objects? }` | `false`                     | 启用 `eslint-plugin-perfectionist` 层 |
+| `react`         | `boolean`                        | `false`                     | 启用 React 层                         |
+| `vue`           | `boolean`                        | `false`                     | 启用 Vue 层                           |
+| `maxLines`      | `number \| false`                | `300`                       | 单文件最大行数（跳过空行/注释）       |
+| `files`         | `string[]`                       | `['**/*.{js,mjs,cjs,jsx}']` | 基线层适用的文件匹配模式              |
+| `ignores`       | `string[]`                       | `[]`                        | 在默认忽略项之后追加的忽略模式        |
+| `overrides`     | `Linter.RulesRecord`             | `{}`                        | 优先级最高的规则覆盖                  |
 
 ## Prettier
 
