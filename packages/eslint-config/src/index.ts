@@ -23,7 +23,7 @@ export interface TypeScriptOptions {
 /** unicorn 规则层的细粒度配置。 */
 export interface UnicornOptions {
   /**
-   * 是否启用默认关闭的 6 条激进规则（filename-case、prevent-abbreviations 等）。
+   * 是否启用默认关闭的 8 条激进规则（filename-case、prevent-abbreviations 等）。
    * @default false
    */
   strict?: boolean

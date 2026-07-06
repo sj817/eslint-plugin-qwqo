@@ -8,7 +8,7 @@ import lintspec from '@qwqo/eslint-config'
 export default lintspec({ unicorn: true })
 ```
 
-默认关闭 6 条较激进的规则（`filename-case`、`prevent-abbreviations`、`no-null`、`no-array-reduce`、`no-nested-ternary`、`prefer-top-level-await`）。如需启用：
+默认关闭 8 条较激进的规则（`filename-case`、`prevent-abbreviations`、`no-null`、`no-array-reduce`、`no-nested-ternary`、`prefer-top-level-await`、`relative-url-style`、`numeric-separators-style`）。如需启用：
 
 ```js
 export default lintspec({ unicorn: { strict: true } })
