@@ -49,7 +49,7 @@ export default lintspec({
   unicorn: true, // 默认开启；{ strict: true } 启用激进规则
   typescript: true, // 或 { typeAware: true }
   importX: true, // 或 { extensions: false }
-  perfectionist: true, // 或 { sort: 'natural', objects: false }
+  perfectionist: true, // 或 { sort: 'natural', objects: true }（对象排序默认关闭）
   react: true,
   vue: true,
   maxLines: 300, // 单文件最大行数；传 false 关闭

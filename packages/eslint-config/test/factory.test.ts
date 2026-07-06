@@ -60,12 +60,14 @@ describe('lintspec 工厂', () => {
     expect(names(lintspec({ perfectionist: { sort: 'natural' } }))).toContain('qwqo/perfectionist')
   })
 
-  it('perfectionist.objects=false 关闭对象键排序', () => {
-    expect(names(lintspec({ perfectionist: true }))).not.toContain('qwqo/perfectionist/no-objects')
-    const off = lintspec({ perfectionist: { objects: false } }).find(
+  it('perfectionist 默认关闭对象键排序，objects:true 可开启', () => {
+    const def = lintspec({ perfectionist: true }).find(
       item => item.name === 'qwqo/perfectionist/no-objects',
     )
-    expect(off?.rules?.['perfectionist/sort-objects']).toBe('off')
+    expect(def?.rules?.['perfectionist/sort-objects']).toBe('off')
+    expect(names(lintspec({ perfectionist: { objects: true } }))).not.toContain(
+      'qwqo/perfectionist/no-objects',
+    )
   })
 
   it('overrides 非空时追加最高优先级层', () => {

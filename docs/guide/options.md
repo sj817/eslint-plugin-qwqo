@@ -77,7 +77,7 @@ export default lintspec({
 | `typescript.typeAware` | `false`         | 启用需要类型信息的规则（依赖 tsconfig）                |
 | `importX.extensions`   | `true`          | 是否强制相对导入省略后缀；NodeNext 项目可设为 `false` |
 | `perfectionist.sort`   | `'line-length'` | import 排序方式，可设为 `'natural'` 切回自然顺序       |
-| `perfectionist.objects` | `true`         | 是否排序对象键；设为 `false` 仅保留 import 等排序      |
+| `perfectionist.objects` | `false`        | 是否排序对象键；默认关闭，设为 `true` 开启对象键排序   |
 
 ```js
 export default lintspec({

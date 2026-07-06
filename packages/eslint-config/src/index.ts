@@ -46,9 +46,9 @@ export interface PerfectionistOptions {
    */
   sort?: PerfectionistSort
   /**
-   * 是否排序对象键（`perfectionist/sort-objects`）。传 `false` 仅保留 import 等排序，
-   * 不再强制对象字面量按序排列。
-   * @default true
+   * 是否排序对象键（`perfectionist/sort-objects`）。默认关闭——对象排序较易干扰手写顺序
+   * （如配置对象）；传 `true` 开启，强制对象字面量按序排列。
+   * @default false
    */
   objects?: boolean
 }
@@ -168,7 +168,7 @@ export default function lintspec(options: LintspecOptions = {}): Linter.Config[]
       ? 'natural'
       : 'line-length'
   const perfectionistObjects =
-    typeof perfectionist === 'object' ? perfectionist.objects !== false : true
+    typeof perfectionist === 'object' ? perfectionist.objects === true : false
 
   // 基线层及通用增强层的适用范围：启用 TypeScript 时扩展到 .ts 文件。
   const baseFiles = typescriptEnabled ? [...files, ...GLOB_TS] : files
