@@ -30,6 +30,9 @@ export function typescriptPreset(typeAware: boolean): Linter.Config[] {
     rules: {
       // TypeScript 自身已做未定义检查，关闭 no-undef 以避免误报。
       'no-undef': 'off',
+      // consistent-type-imports(separate-type-imports)会把「值 + 类型」拆成同模块两条 import，
+      // 与内置 no-duplicate-imports 冲突;TS 层关闭它(需查重可用 importX 层的 import-x/no-duplicates)。
+      'no-duplicate-imports': 'off',
       // 类型导入统一为顶层 `import type {...}`，禁止内联 `import { type X }`。
       '@typescript-eslint/consistent-type-imports': [
         'error',

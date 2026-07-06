@@ -113,4 +113,11 @@ describe('新增规则校验', () => {
     const message = result.messages.find(m => m.ruleId === '@typescript-eslint/no-require-imports')
     expect(message?.severity).toBe(1)
   })
+
+  it('TS 层不将「值 + 类型同模块」判为重复导入', async () => {
+    const code =
+      'import { ref } from "vue"\nimport type { Ref } from "vue"\nexport const x: Ref<number> = ref(0)\n'
+    const ids = await lint({ typescript: true }, 'sample.ts', code)
+    expect(ids).not.toContain('no-duplicate-imports')
+  })
 })
