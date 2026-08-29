@@ -16,7 +16,7 @@ export default lintspec({
   browser: false, // 浏览器全局：window、document、fetch…
 
   // —— 规则层（布尔开关 或 子选项对象）——
-  unicorn: true, // 现代化增强层，默认开启
+  unicorn: true, // 22 条高置信度纠错规则，默认开启
   typescript: false, // TypeScript 规则层
   importX: false, // import-x 导入管理层
   perfectionist: false, // perfectionist 排序层
@@ -24,7 +24,7 @@ export default lintspec({
   vue: false, // Vue 层
 
   // —— 其它 ——
-  maxLines: 300, // 单文件最大行数（max-lines，跳过空行/注释）；传 false 关闭
+  maxLines: 500, // 单文件最大行数（max-lines，跳过空行/注释）；传 false 关闭
 
   // —— 文件范围与覆盖 ——
   files: ['**/*.{js,mjs,cjs,jsx}'], // 基线层适用文件
@@ -35,20 +35,20 @@ export default lintspec({
 
 ## 选项
 
-| 选项            | 类型                         | 默认值                      | 说明                                                 |
-| --------------- | ---------------------------- | --------------------------- | ---------------------------------------------------- |
-| `node`          | `boolean`                    | `false`                     | 启用 Node.js 全局变量                                |
-| `browser`       | `boolean`                    | `false`                     | 启用浏览器全局变量                                   |
-| `unicorn`       | `boolean \| { strict? }`     | `true`                      | 启用 [unicorn](../layers/unicorn) 现代化增强层       |
-| `typescript`    | `boolean \| { typeAware? }`  | `false`                     | 启用 [TypeScript](../layers/typescript) 层           |
-| `importX`       | `boolean \| { extensions? }` | `false`                     | 启用 [import-x](../layers/import) 导入管理层          |
-| `perfectionist` | `boolean \| { sort? }`       | `false`                     | 启用 [perfectionist](../layers/perfectionist) 排序层 |
-| `react`         | `boolean`                    | `false`                     | 启用 [React](../layers/react) 层                     |
-| `vue`           | `boolean`                    | `false`                     | 启用 [Vue](../layers/vue) 层                         |
-| `maxLines`      | `number \| false`            | `300`                       | 单文件最大行数（`max-lines`，跳过空行/注释）；`false` 关闭 |
-| `files`         | `string[]`                   | `['**/*.{js,mjs,cjs,jsx}']` | 基线层适用的文件匹配模式                             |
-| `ignores`       | `string[]`                   | `[]`                        | 在默认忽略项之后追加的忽略模式                       |
-| `overrides`     | `Linter.RulesRecord`         | `{}`                        | 优先级最高的规则覆盖                                 |
+| 选项            | 类型                                                              | 默认值                      | 说明                                                       |
+| --------------- | ----------------------------------------------------------------- | --------------------------- | ---------------------------------------------------------- |
+| `node`          | `boolean`                                                         | `false`                     | 启用 Node.js 全局变量                                      |
+| `browser`       | `boolean`                                                         | `false`                     | 启用浏览器全局变量                                         |
+| `unicorn`       | `boolean \| { strict? }`                                          | `true`                      | 启用 [unicorn](../layers/unicorn) 安全纠错层               |
+| `typescript`    | `boolean \| { typeAware? }`                                       | `false`                     | 启用 [TypeScript](../layers/typescript) 层                 |
+| `importX`       | `boolean \| { extensions?, project?, noWarnOnMultipleProjects? }` | `false`                     | 启用 [import-x](../layers/import) 导入管理层               |
+| `perfectionist` | `boolean \| { sort? }`                                            | `false`                     | 启用 [perfectionist](../layers/perfectionist) 排序层       |
+| `react`         | `boolean`                                                         | `false`                     | 启用 [React](../layers/react) 层                           |
+| `vue`           | `boolean`                                                         | `false`                     | 启用 [Vue](../layers/vue) 层                               |
+| `maxLines`      | `number \| false`                                                 | `500`                       | 单文件最大行数（`max-lines`，跳过空行/注释）；`false` 关闭 |
+| `files`         | `string[]`                                                        | `['**/*.{js,mjs,cjs,jsx}']` | 基线层适用的文件匹配模式                                   |
+| `ignores`       | `string[]`                                                        | `[]`                        | 在默认忽略项之后追加的忽略模式                             |
+| `overrides`     | `Linter.RulesRecord`                                              | `{}`                        | 优先级最高的规则覆盖                                       |
 
 ## 默认忽略
 
@@ -56,6 +56,7 @@ export default lintspec({
 
 ```
 **/node_modules/**   **/dist/**          **/build/**        **/out/**
+**/target/**
 **/coverage/**       **/.turbo/**        **/.cache/**       **/.next/**
 **/.nuxt/**          **/.output/**       **/.vercel/**      **/.svelte-kit/**
 **/.vitepress/cache/**   **/.vitepress/dist/**   **/*.min.js**
@@ -71,13 +72,15 @@ export default lintspec({
 
 ## 子选项 / 自定义
 
-| 子选项                 | 默认值          | 作用                                                  |
-| ---------------------- | --------------- | ----------------------------------------------------- |
-| `unicorn.strict`       | `false`         | 启用默认关闭的 11 条激进规则                           |
-| `typescript.typeAware` | `false`         | 启用需要类型信息的规则（依赖 tsconfig）                |
-| `importX.extensions`   | `true`          | 是否强制相对导入省略后缀；NodeNext 项目可设为 `false` |
-| `perfectionist.sort`   | `'line-length'` | import 排序方式，可设为 `'natural'` 切回自然顺序       |
-| `perfectionist.objects` | `false`        | 是否排序对象键；默认关闭，设为 `true` 开启对象键排序   |
+| 子选项                             | 默认值          | 作用                                                  |
+| ---------------------------------- | --------------- | ----------------------------------------------------- |
+| `unicorn.strict`                   | `false`         | 启用完整推荐集，包括默认关闭的迁移与语义重写规则      |
+| `typescript.typeAware`             | `false`         | 启用需要类型信息的规则（依赖 tsconfig）               |
+| `importX.extensions`               | `true`          | 是否强制相对导入省略后缀；NodeNext 项目可设为 `false` |
+| `importX.project`                  | `undefined`     | TypeScript resolver 使用的 tsconfig 路径或 glob       |
+| `importX.noWarnOnMultipleProjects` | `false`         | 隐藏显式多 tsconfig 的 resolver 性能提示              |
+| `perfectionist.sort`               | `'line-length'` | import 排序方式，可设为 `'natural'` 切回自然顺序      |
+| `perfectionist.objects`            | `false`         | 是否排序对象键；默认关闭，设为 `true` 开启对象键排序  |
 
 ```js
 export default lintspec({
@@ -154,7 +157,11 @@ import lintspec from '@qwqo/eslint-config'
 export default lintspec({
   node: true,
   typescript: { typeAware: true },
-  importX: { extensions: false }, // NodeNext：导入保留 .js 后缀
+  importX: {
+    extensions: false, // NodeNext：导入保留 .js 后缀
+    project: ['packages/*/tsconfig.json'],
+    noWarnOnMultipleProjects: true,
+  },
   perfectionist: { sort: 'natural' },
   files: ['packages/*/src/**/*.{ts,tsx}'],
   ignores: ['**/dist/**', '**/*.gen.ts'],
@@ -163,10 +170,10 @@ export default lintspec({
 
 ## 组合顺序
 
-各层按固定顺序组合，[Prettier 协调层](../layers/prettier) 始终位于末尾，`overrides` 优先级最高：
+各层按固定顺序组合，[Stylistic 格式层](../layers/stylistic) 始终位于功能规则之后，`overrides` 优先级最高：
 
 ```
-基线层 → TypeScript → import-x → perfectionist → React → Vue → unicorn → Prettier 协调层 → overrides
+基线层 → TypeScript → import-x → perfectionist → React → Vue → unicorn → Stylistic → overrides
 ```
 
 每层仅作用于其目标文件类型（如 TypeScript 层仅作用于 `.ts`，Vue 层仅作用于 `.vue`），因此可安全地同时开启。
@@ -182,7 +189,7 @@ export default lintspec({
 - [perfectionist](../layers/perfectionist)
 - [React](../layers/react)
 - [Vue](../layers/vue)
-- [Prettier 协调层](../layers/prettier)
+- [Stylistic 格式层](../layers/stylistic)
 
 ## 覆盖规则
 
@@ -193,7 +200,7 @@ export default lintspec({
   typescript: true,
   overrides: {
     'no-console': 'error',
-    '@typescript-eslint/no-explicit-any': 'off',
+    eqeqeq: 'off',
   },
 })
 ```

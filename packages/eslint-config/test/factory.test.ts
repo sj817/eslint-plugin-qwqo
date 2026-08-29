@@ -3,21 +3,29 @@ import { describe, expect, it } from 'vitest'
 import lintspec from '../src/index'
 
 /** 取出配置数组中所有具名的层名称。 */
-function names(config: ReturnType<typeof lintspec>): string[] {
+function names (config: ReturnType<typeof lintspec>): string[] {
   return config.map(item => item.name).filter((name): name is string => typeof name === 'string')
 }
 
 describe('lintspec 工厂', () => {
-  it('默认包含基线、unicorn 与 prettier 协调层', () => {
+  it('默认包含基线、unicorn 与 Stylistic 格式层', () => {
     const layers = names(lintspec())
     expect(layers).toContain('qwqo/base')
     expect(layers).toContain('qwqo/unicorn')
-    expect(layers).toContain('qwqo/prettier')
+    expect(layers).toContain('qwqo/stylistic')
   })
 
-  it('prettier 协调层始终位于最后', () => {
+  it('Stylistic 格式层位于功能规则之后', () => {
     const config = lintspec({ typescript: true, importX: true, react: true })
-    expect(config.at(-1)?.name).toBe('qwqo/prettier')
+    const stylisticIndex = config.findIndex(item => item.name === 'qwqo/stylistic')
+    const unicornIndex = config.findIndex(item => item.name === 'qwqo/unicorn')
+    expect(stylisticIndex).toBeGreaterThan(unicornIndex)
+    expect(config.at(-1)?.name?.startsWith('qwqo/stylistic')).toBe(true)
+  })
+
+  it('只在启用 Vue 时追加 Vue 格式层', () => {
+    expect(names(lintspec())).not.toContain('qwqo/stylistic/vue')
+    expect(names(lintspec({ vue: true }))).toContain('qwqo/stylistic/vue')
   })
 
   it('unicorn 可关闭', () => {
@@ -44,8 +52,38 @@ describe('lintspec 工厂', () => {
   })
 
   it('unicorn.strict 启用被默认关闭的激进规则', () => {
-    expect(names(lintspec())).toContain('qwqo/unicorn/overrides')
-    expect(names(lintspec({ unicorn: { strict: true } }))).not.toContain('qwqo/unicorn/overrides')
+    const defaults = lintspec().find(item => item.name === 'qwqo/unicorn')
+    const disabledByDefault = [
+      'unicorn/catch-error-name',
+      'unicorn/no-for-each',
+      'unicorn/prefer-dom-node-append',
+      'unicorn/prefer-global-this',
+      'unicorn/prefer-node-protocol',
+      'unicorn/prefer-private-class-fields',
+      'unicorn/prefer-query-selector',
+      'unicorn/prefer-string-replace-all',
+      'unicorn/require-passive-events',
+    ]
+    for (const rule of disabledByDefault) {
+      expect(defaults?.rules?.[rule]).toBeUndefined()
+    }
+    expect(defaults?.rules?.['unicorn/no-invalid-fetch-options']).toBe('error')
+    expect(Object.keys(defaults?.rules ?? {})).toHaveLength(22)
+
+    const strict = lintspec({ unicorn: { strict: true } }).find(
+      item => item.name === 'qwqo/unicorn/strict',
+    )
+    for (const rule of disabledByDefault) {
+      expect(strict?.rules?.[rule]).toBeDefined()
+    }
+  })
+
+  it('React 默认不启用 React 19 迁移与命名规则', () => {
+    const react = lintspec({ react: true }).find(item => item.name === 'qwqo/react')
+    expect(react?.rules?.['@eslint-react/no-context-provider']).toBeUndefined()
+    expect(react?.rules?.['@eslint-react/no-use-context']).toBeUndefined()
+    expect(react?.rules?.['@eslint-react/naming-convention-ref-name']).toBeUndefined()
+    expect(react?.rules?.['@eslint-react/no-missing-key']).toBe('error')
   })
 
   it('importX.extensions 控制无后缀强制层', () => {
@@ -53,6 +91,18 @@ describe('lintspec 工厂', () => {
     expect(names(lintspec({ importX: { extensions: false } }))).not.toContain(
       'qwqo/import/extensions',
     )
+  })
+
+  it('TypeScript import 层配置官方 resolver，并允许指定 monorepo tsconfig', () => {
+    const config = lintspec({
+      typescript: true,
+      importX: {
+        project: ['packages/*/tsconfig.json'],
+        noWarnOnMultipleProjects: true,
+      },
+    })
+    const resolver = config.find(item => item.name === 'qwqo/import/typescript-resolver')
+    expect(resolver?.settings?.['import-x/resolver-next']).toHaveLength(1)
   })
 
   it('perfectionist 始终配置 import 分组排序', () => {
@@ -81,13 +131,14 @@ describe('lintspec 工厂', () => {
     const ignores = config.find(item => item.name === 'qwqo/ignores')
     expect(ignores?.ignores).toContain('vendor/**')
     expect(ignores?.ignores).toContain('**/node_modules/**')
+    expect(ignores?.ignores).toContain('**/target/**')
   })
 
-  it('maxLines 默认在基线层注入 max-lines（300）', () => {
+  it('maxLines 默认在基线层注入 max-lines（500）', () => {
     const base = lintspec().find(item => item.name === 'qwqo/base')
     expect(base?.rules?.['max-lines']).toEqual([
       'warn',
-      { max: 300, skipBlankLines: true, skipComments: true },
+      { max: 500, skipBlankLines: true, skipComments: true },
     ])
   })
 
@@ -99,5 +150,34 @@ describe('lintspec 工厂', () => {
     ])
     const off = lintspec({ maxLines: false }).find(item => item.name === 'qwqo/base')
     expect(off?.rules?.['max-lines']).toBeUndefined()
+  })
+
+  it('typeAware 不允许用 void 绕过浮动 Promise', () => {
+    const layer = lintspec({ typescript: { typeAware: true } }).find(
+      item => item.name === 'qwqo/typescript/type-aware',
+    )
+    expect(layer?.rules?.['@typescript-eslint/no-floating-promises']).toEqual([
+      'error',
+      { ignoreVoid: false },
+    ])
+  })
+
+  it('所有多行语法均要求尾随逗号', () => {
+    const layer = lintspec().find(item => item.name === 'qwqo/stylistic')
+    expect(layer?.rules?.['@stylistic/comma-dangle']).toEqual([
+      'error',
+      {
+        arrays: 'always-multiline',
+        objects: 'always-multiline',
+        imports: 'always-multiline',
+        exports: 'always-multiline',
+        functions: 'always-multiline',
+        importAttributes: 'always-multiline',
+        dynamicImports: 'always-multiline',
+        enums: 'always-multiline',
+        generics: 'always-multiline',
+        tuples: 'always-multiline',
+      },
+    ])
   })
 })

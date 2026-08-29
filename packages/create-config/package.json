@@ -1,13 +1,12 @@
 {
   "name": "create-qwqo-config",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "type": "module",
-  "description": "Scaffold qwqo ESLint + Prettier config interactively.",
+  "description": "Scaffold the qwqo ESLint config interactively.",
   "license": "MIT",
   "keywords": [
     "create",
     "eslint",
-    "prettier",
     "config",
     "scaffold",
     "qwqo"

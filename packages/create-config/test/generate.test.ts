@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 
 import {
   buildEslintConfig,
-  buildPrettierConfig,
   detectPackageManager,
   devDependencies,
   installArgs,
+  scaffoldScripts,
   type ScaffoldAnswers,
 } from '../src/generate'
 
@@ -41,12 +41,6 @@ describe('buildEslintConfig', () => {
   })
 })
 
-describe('buildPrettierConfig', () => {
-  it('re-export 共享配置', () => {
-    expect(buildPrettierConfig()).toBe("export { default } from '@qwqo/prettier-config'\n")
-  })
-})
-
 describe('detectPackageManager', () => {
   it('从 user agent 识别', () => {
     expect(detectPackageManager('pnpm/10.0.0 npm/? node/v22')).toBe('pnpm')
@@ -73,8 +67,14 @@ describe('installArgs', () => {
 
   it('依赖清单含共享配置与底层工具', () => {
     expect(deps).toContain('eslint')
-    expect(deps).toContain('prettier')
     expect(deps).toContain('@qwqo/eslint-config')
-    expect(deps).toContain('@qwqo/prettier-config')
+    expect(deps).toHaveLength(2)
+  })
+})
+
+describe('scaffoldScripts', () => {
+  it('format 执行完整 ESLint 修复', () => {
+    expect(scaffoldScripts.format).toBe('eslint . --fix')
+    expect(scaffoldScripts['lint:fix']).toBe('eslint . --fix')
   })
 })

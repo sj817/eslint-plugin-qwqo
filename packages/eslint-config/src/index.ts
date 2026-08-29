@@ -4,8 +4,8 @@ import { browserGlobals, commonIgnores, nodeGlobals } from './globals'
 import { GLOB_JS, GLOB_JS_TS, GLOB_TS } from './globs'
 import { importPreset } from './presets/import'
 import { type PerfectionistSort, perfectionistPreset } from './presets/perfectionist'
-import { prettierPreset } from './presets/prettier'
 import { reactPreset } from './presets/react'
+import { stylisticPreset } from './presets/stylistic'
 import { typescriptPreset } from './presets/typescript'
 import { unicornPreset } from './presets/unicorn'
 import { vuePreset } from './presets/vue'
@@ -23,7 +23,7 @@ export interface TypeScriptOptions {
 /** unicorn 规则层的细粒度配置。 */
 export interface UnicornOptions {
   /**
-   * 是否启用默认关闭的 11 条激进规则（filename-case、name-replacements 等）。
+   * 是否启用完整 Unicorn 推荐集，包括默认关闭的迁移与语义重写规则。
    * @default false
    */
   strict?: boolean
@@ -36,6 +36,17 @@ export interface ImportXOptions {
    * @default true
    */
   extensions?: boolean
+  /**
+   * TypeScript resolver 使用的 tsconfig 路径或 glob。Monorepo 根 tsconfig
+   * 未通过 references 串联各 workspace 时，应显式列出子项目。
+   * @default undefined
+   */
+  project?: string | string[]
+  /**
+   * 显式配置多个 tsconfig 时，是否隐藏 resolver 的性能提示。
+   * @default false
+   */
+  noWarnOnMultipleProjects?: boolean
 }
 
 /** perfectionist 规则层的细粒度配置。 */
@@ -66,7 +77,7 @@ export interface LintspecOptions {
    */
   browser?: boolean
   /**
-   * 启用 eslint-plugin-unicorn 现代化增强层。传入对象可开启 `strict`。
+   * 启用 eslint-plugin-unicorn 安全纠错层。传入对象可开启完整的 `strict` 推荐集。
    * @default true
    */
   unicorn?: boolean | UnicornOptions
@@ -98,7 +109,7 @@ export interface LintspecOptions {
   /**
    * 限制单个文件的最大行数（`max-lines`，统计时跳过空行与注释）。
    * 传入数字设定上限，传入 `false` 关闭该限制。
-   * @default 300
+   * @default 500
    */
   maxLines?: number | false
   /**
@@ -121,7 +132,7 @@ export interface LintspecOptions {
 /**
  * 构建 lintspec 扁平配置。
  *
- * 各规则层均为可选开关，按固定顺序组合；Prettier 协调层始终置于末尾，
+ * 各规则层均为可选开关，按固定顺序组合；Stylistic 格式层始终置于末尾，
  * 用户 `overrides` 拥有最高优先级。
  *
  * @example
@@ -131,7 +142,7 @@ export interface LintspecOptions {
  * export default lintspec({ node: true, typescript: true })
  * ```
  */
-export default function lintspec(options: LintspecOptions = {}): Linter.Config[] {
+export default function lintspec (options: LintspecOptions = {}): Linter.Config[] {
   const {
     node = false,
     browser = false,
@@ -141,13 +152,13 @@ export default function lintspec(options: LintspecOptions = {}): Linter.Config[]
     perfectionist = false,
     react = false,
     vue = false,
-    maxLines = 300,
+    maxLines = 500,
     files = GLOB_JS,
     ignores = [],
     overrides = {},
   } = options
 
-  // 文件行数上限规则：跳过空行与注释，默认 300，传 false 关闭。
+  // 文件行数上限规则：跳过空行与注释，默认 500，传 false 关闭。
   const maxLinesRule: Linter.RulesRecord =
     maxLines === false
       ? {}
@@ -161,6 +172,9 @@ export default function lintspec(options: LintspecOptions = {}): Linter.Config[]
 
   const importXEnabled = importX !== false
   const importExtensions = typeof importX === 'object' ? importX.extensions !== false : true
+  const importProject = typeof importX === 'object' ? importX.project : undefined
+  const importNoWarnOnMultipleProjects =
+    typeof importX === 'object' ? importX.noWarnOnMultipleProjects : undefined
 
   const perfectionistEnabled = perfectionist !== false
   const perfectionistSort: PerfectionistSort =
@@ -210,7 +224,14 @@ export default function lintspec(options: LintspecOptions = {}): Linter.Config[]
   }
 
   if (importXEnabled) {
-    config.push(...importPreset(typescriptEnabled, importExtensions))
+    config.push(
+      ...importPreset(
+        typescriptEnabled,
+        importExtensions,
+        importProject,
+        importNoWarnOnMultipleProjects,
+      ),
+    )
   }
 
   if (perfectionistEnabled) {
@@ -229,8 +250,8 @@ export default function lintspec(options: LintspecOptions = {}): Linter.Config[]
     config.push(...unicornPreset(lintFiles, unicornStrict))
   }
 
-  // Prettier 协调层：关闭格式化类规则，必须位于所有规则层之后。
-  config.push(prettierPreset)
+  // Stylistic 格式层：由 ESLint 统一检查和修复，必须位于所有功能规则层之后。
+  config.push(...stylisticPreset(lintFiles, typescriptEnabled, vue))
 
   if (Object.keys(overrides).length > 0) {
     config.push({

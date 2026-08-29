@@ -8,6 +8,19 @@ import lintspec from '@qwqo/eslint-config'
 export default lintspec({ importX: true })
 ```
 
+TypeScript 项目会通过 `eslint-import-resolver-typescript` 读取 tsconfig。Monorepo 的根
+tsconfig 如果没有用 `references` 串联 workspace，请显式给出子项目配置：
+
+```js
+export default lintspec({
+  typescript: true,
+  importX: {
+    project: ['apps/*/tsconfig.json', 'packages/*/tsconfig.json'],
+    noWarnOnMultipleProjects: true,
+  },
+})
+```
+
 > import 的**分组与排序**由 [perfectionist](./perfectionist) 层负责（Node 内置 → npm 包 → 内部源码 → 类型导入）。
 
 > 标记说明：🔧 可通过 `eslint --fix` 自动修复 · 💡 在编辑器中提供修复建议。
@@ -21,6 +34,7 @@ export default lintspec({ importX: true })
 ```ts
 import { config } from './config.ts'
 ```
+
 :::
 
 ::: good
@@ -28,6 +42,7 @@ import { config } from './config.ts'
 ```ts
 import { config } from './config'
 ```
+
 :::
 
 如项目使用 NodeNext / 纯 ESM（运行时需要后缀），可关闭该约定：
@@ -46,6 +61,7 @@ export default lintspec({ importX: { extensions: false } })
 import { a } from './model'
 import { b } from './model'
 ```
+
 :::
 
 ::: good
@@ -53,6 +69,7 @@ import { b } from './model'
 ```js
 import { a, b } from './model'
 ```
+
 :::
 
 ## 禁止无法解析的导入（no-unresolved）
@@ -64,6 +81,7 @@ import { a, b } from './model'
 ```js
 import { config } from './conifg'
 ```
+
 :::
 
 ::: good
@@ -71,4 +89,5 @@ import { config } from './conifg'
 ```js
 import { config } from './config'
 ```
+
 :::

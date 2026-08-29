@@ -1,4 +1,4 @@
-export function mount(id) {
+export function mount (id) {
   const element = document.querySelector(`#${id}`)
 
   if (element) {

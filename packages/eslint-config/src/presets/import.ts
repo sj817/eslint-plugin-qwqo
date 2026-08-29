@@ -1,4 +1,5 @@
 import type { Linter } from 'eslint'
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
 import importX from 'eslint-plugin-import-x'
 
 import { GLOB_JS_TS, GLOB_TS } from '../globs'
@@ -8,8 +9,15 @@ import { GLOB_JS_TS, GLOB_TS } from '../globs'
  *
  * @param typescript - 是否追加 TypeScript 解析器设置，使其能解析 `.ts` 导入
  * @param extensions - 是否强制相对导入省略 `.ts`/`.js` 等后缀
+ * @param project - TypeScript resolver 使用的 tsconfig 路径或 glob
+ * @param noWarnOnMultipleProjects - 是否隐藏多 tsconfig 的性能提示
  */
-export function importPreset(typescript: boolean, extensions: boolean): Linter.Config[] {
+export function importPreset (
+  typescript: boolean,
+  extensions: boolean,
+  project?: string | string[],
+  noWarnOnMultipleProjects?: boolean,
+): Linter.Config[] {
   const configs: Linter.Config[] = [
     {
       ...(importX.flatConfigs.recommended as Linter.Config),
@@ -19,11 +27,26 @@ export function importPreset(typescript: boolean, extensions: boolean): Linter.C
   ]
 
   if (typescript) {
-    configs.push({
-      ...(importX.flatConfigs.typescript as Linter.Config),
-      name: 'qwqo/import/typescript',
-      files: GLOB_TS,
-    })
+    configs.push(
+      {
+        ...(importX.flatConfigs.typescript as Linter.Config),
+        name: 'qwqo/import/typescript',
+        files: GLOB_TS,
+      },
+      {
+        name: 'qwqo/import/typescript-resolver',
+        files: GLOB_TS,
+        settings: {
+          'import-x/resolver-next': [
+            createTypeScriptImportResolver(
+              project === undefined && noWarnOnMultipleProjects === undefined
+                ? undefined
+                : { project, noWarnOnMultipleProjects },
+            ),
+          ],
+        },
+      },
+    )
   }
 
   if (extensions) {

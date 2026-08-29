@@ -7,7 +7,6 @@ import * as p from '@clack/prompts'
 
 import {
   buildEslintConfig,
-  buildPrettierConfig,
   detectPackageManager,
   devDependencies,
   installArgs,
@@ -15,10 +14,10 @@ import {
   type ScaffoldAnswers,
 } from './generate'
 
-async function main(): Promise<void> {
+async function main (): Promise<void> {
   const cwd = process.cwd()
 
-  p.intro('create-qwqo-config · 一个函数搞定 ESLint 与 Prettier')
+  p.intro('create-qwqo-config · 一个函数搞定代码检查与格式化')
 
   const framework = await p.select({
     message: '使用哪个框架？',
@@ -53,7 +52,6 @@ async function main(): Promise<void> {
 
   // 1. 写入配置文件（统一用 .mjs，免受 package.json type 影响）。
   await writeConfigFile(path.resolve(cwd, 'eslint.config.mjs'), buildEslintConfig(scaffold))
-  await writeConfigFile(path.resolve(cwd, 'prettier.config.mjs'), buildPrettierConfig())
 
   // 2. 合并 package.json 脚本（不存在则创建最小化清单）。
   ensurePackageScripts(path.resolve(cwd, 'package.json'))
@@ -77,16 +75,16 @@ async function main(): Promise<void> {
   const result = spawnSync(pm, installArgs(pm, deps), { cwd, stdio: 'ignore', shell: true })
   spinner.stop(result.status === 0 ? '依赖安装完成。' : '依赖安装失败，请稍后手动安装。')
 
-  p.outro(`完成！运行 \`${pm} run lint\` 与 \`${pm} run format\` 试试。`)
+  p.outro(`完成！运行 \`${pm} run lint\` 检查，或运行 \`${pm} run format\` 自动修复。`)
 }
 
 /** 用户取消时的统一收尾。 */
-function cancelled(): void {
+function cancelled (): void {
   p.cancel('已取消。')
 }
 
 /** 写入文件；已存在时询问是否覆盖。 */
-async function writeConfigFile(filePath: string, content: string): Promise<void> {
+async function writeConfigFile (filePath: string, content: string): Promise<void> {
   if (existsSync(filePath)) {
     const overwrite = await p.confirm({
       message: `${path.basename(filePath)} 已存在，覆盖？`,
@@ -98,7 +96,7 @@ async function writeConfigFile(filePath: string, content: string): Promise<void>
 }
 
 /** 把 lint/format 脚本合并进 package.json，缺失时创建最小清单。 */
-function ensurePackageScripts(pkgPath: string): void {
+function ensurePackageScripts (pkgPath: string): void {
   let pkg: Record<string, unknown>
   if (existsSync(pkgPath)) {
     try {

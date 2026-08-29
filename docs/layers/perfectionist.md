@@ -28,6 +28,7 @@ import { readFile } from 'node:fs'
 import a from 'aa'
 import { local } from './local'
 ```
+
 :::
 
 ::: good
@@ -42,6 +43,7 @@ import { local } from './local'
 
 import type { Linter } from 'eslint'
 ```
+
 :::
 
 如更习惯自然（字母）顺序，可切换：
@@ -59,6 +61,7 @@ export default lintspec({ perfectionist: { sort: 'natural' } })
 ```js
 import { bbb, a } from 'mod'
 ```
+
 :::
 
 ::: good
@@ -66,6 +69,7 @@ import { bbb, a } from 'mod'
 ```js
 import { a, bbb } from 'mod'
 ```
+
 :::
 
 ## 对象键排序（sort-objects） <span class="ls-cap ignore-header">🔧</span>
@@ -77,6 +81,7 @@ import { a, bbb } from 'mod'
 ```js
 const config = { zebra: 1, apple: 2 }
 ```
+
 :::
 
 ::: good
@@ -84,6 +89,7 @@ const config = { zebra: 1, apple: 2 }
 ```js
 const config = { apple: 2, zebra: 1 }
 ```
+
 :::
 
 ::: tip

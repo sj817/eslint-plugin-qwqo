@@ -3,6 +3,6 @@ export interface User {
   name: string
 }
 
-export function greet(user: User): string {
+export function greet (user: User): string {
   return `hello ${user.name}`
 }

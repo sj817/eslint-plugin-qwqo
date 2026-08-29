@@ -7,6 +7,7 @@ export const commonIgnores: string[] = [
   '**/dist/**',
   '**/build/**',
   '**/out/**',
+  '**/target/**',
   '**/coverage/**',
   '**/.turbo/**',
   '**/.cache/**',

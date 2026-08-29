@@ -13,7 +13,7 @@ export type PerfectionistSort = 'line-length' | 'natural'
  * @param sort - import 的排序方式，默认按行长（短→长）
  * @param objects - 是否排序对象键（`perfectionist/sort-objects`）；关闭后仅保留 import 等排序
  */
-export function perfectionistPreset(sort: PerfectionistSort, objects: boolean): Linter.Config[] {
+export function perfectionistPreset (sort: PerfectionistSort, objects: boolean): Linter.Config[] {
   const configs: Linter.Config[] = [
     {
       ...(perfectionist.configs['recommended-natural'] as Linter.Config),

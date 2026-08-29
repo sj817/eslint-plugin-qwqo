@@ -1,185 +1,61 @@
-# unicorn
+# Unicorn 层
 
-基于 [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) 推荐集的现代化增强层，**默认开启**，覆盖其绝大多数规则。
+Unicorn 默认只启用固定的 **22 条高置信度纠错规则**。这是显式白名单，不继承插件的完整推荐集，因此插件以后增加新规则，也不会悄悄进入 Lintspec 默认配置。
 
-```js
-import lintspec from '@qwqo/eslint-config'
+默认规则只检查能够明确证明有问题的代码，例如：
 
-export default lintspec({ unicorn: true })
+- 无效的 `fetch` 选项与事件监听器移除；
+- 错误的 `querySelector`、字符串替换和 `Buffer` 转换；
+- 不可能成立的长度比较、重复逻辑操作数和无效参数数量；
+- `Proxy` trap 返回值、well-known symbol 方法和 Promise settled values 的明显错误。
+
+以下类型的规则全部默认关闭：
+
+- 控制流、循环和条件重写；
+- async/Promise 写法迁移；
+- 类、数据结构和命名改造；
+- Node、DOM 与 JavaScript API 替换；
+- 面向特定运行时或兼容性目标的现代化建议。
+
+因此默认的完整 `eslint --fix` 不会执行 `forEach` → `for...of`、`appendChild` → `append`、`window` → `globalThis`、`getElementById` → `querySelector`、`replace` → `replaceAll` 等迁移。
+
+## 默认规则
+
+```text
+no-accessor-recursion
+no-boolean-sort-comparator
+no-duplicate-logical-operands
+no-impossible-length-comparison
+no-incorrect-query-selector
+no-instanceof-builtins
+no-invalid-argument-count
+no-invalid-character-comparison
+no-invalid-fetch-options
+no-invalid-remove-event-listener
+no-invalid-well-known-symbol-methods
+no-late-current-target-access
+no-late-event-control
+no-mismatched-map-key
+no-misrefactored-assignment
+no-new-buffer
+no-optional-chaining-on-undeclared-variable
+no-unsafe-buffer-conversion
+no-unsafe-promise-all-settled-values
+no-unsafe-property-key
+no-unsafe-string-replacement
+require-proxy-trap-boolean-return
 ```
 
-默认关闭 11 条较激进的规则（`filename-case`、`name-replacements`、`no-null`、`no-array-reduce`、`no-nested-ternary`、`prefer-top-level-await`、`relative-url-style`、`numeric-separators-style`、`consistent-boolean-name`、`consistent-conditional-object-spread`、`no-top-level-side-effects`）。如需启用：
+## 严格模式
+
+只有主动选择完整 Unicorn 推荐集时才开启严格模式：
 
 ```js
 export default lintspec({ unicorn: { strict: true } })
 ```
 
-> 标记说明：🔧 可通过 `eslint --fix` 自动修复 · 💡 在编辑器中提供修复建议。
-
-## 优先 node: 协议（prefer-node-protocol） <span class="ls-cap ignore-header">🔧</span>
-
-约定导入 Node 内置模块时使用 `node:` 协议。
-
-::: bad
-
-```js
-import { readFile } from 'fs'
-```
+::: warning
+`strict` 会带回控制流、API、异步、类与数据结构迁移规则。它适合愿意逐条审查迁移结果的新项目，不属于默认安全边界。
 :::
 
-::: good
-
-```js
-import { readFile } from 'node:fs'
-```
-:::
-
-## 创建错误须用 new（throw-new-error） <span class="ls-cap ignore-header">🔧</span>
-
-约定抛出错误时使用 `new`。
-
-::: bad
-
-```js
-throw Error('boom')
-```
-:::
-
-::: good
-
-```js
-throw new Error('boom')
-```
-:::
-
-## 优先 Number 静态属性（prefer-number-properties） <span class="ls-cap ignore-header">🔧 💡</span>
-
-约定使用 `Number` 上的方法取代全局函数。
-
-::: bad
-
-```js
-const valid = isNaN(value)
-```
-:::
-
-::: good
-
-```js
-const valid = Number.isNaN(value)
-```
-:::
-
-## 优先 for…of 替代 forEach（no-array-for-each） <span class="ls-cap ignore-header">🔧 💡</span>
-
-约定用 `for...of` 取代 `Array#forEach`（更易于配合 `await` / `break` / `continue`）。
-
-::: bad
-
-```js
-items.forEach(item => handle(item))
-```
-:::
-
-::: good
-
-```js
-for (const item of items) {
-  handle(item)
-}
-```
-:::
-
-## 优先 some（prefer-array-some） <span class="ls-cap ignore-header">🔧 💡</span>
-
-判断是否存在匹配项时约定使用 `Array#some`。
-
-::: bad
-
-```js
-const exists = items.find(item => item.active) !== undefined
-```
-:::
-
-::: good
-
-```js
-const exists = items.some(item => item.active)
-```
-:::
-
-## 禁止 Promise 方法参数中 await（no-await-in-promise-methods） <span class="ls-cap ignore-header">💡</span>
-
-约定不要在 `Promise.all` 等方法的参数里使用 `await`（会让并发退化为串行）。
-
-::: bad
-
-```js
-const results = await Promise.all([await fetchA(), await fetchB()])
-```
-:::
-
-::: good
-
-```js
-const results = await Promise.all([fetchA(), fetchB()])
-```
-:::
-
-## 优先 Date.now()（prefer-date-now） <span class="ls-cap ignore-header">🔧</span>
-
-获取时间戳时约定使用 `Date.now()`。
-
-::: bad
-
-```js
-const time = new Date().getTime()
-```
-:::
-
-::: good
-
-```js
-const time = Date.now()
-```
-:::
-
-## 内置对象须用 new（new-for-builtins） <span class="ls-cap ignore-header">🔧 💡</span>
-
-约定构造内置对象时使用 `new`。
-
-::: bad
-
-```js
-const list = Array(1, 2, 3)
-```
-:::
-
-::: good
-
-```js
-const list = new Array(1, 2, 3)
-```
-:::
-
-## 优先 slice（prefer-string-slice） <span class="ls-cap ignore-header">🔧</span>
-
-约定使用 `String#slice` 取代已废弃的 `substr` / `substring`。
-
-::: bad
-
-```js
-const head = text.substr(0, 1)
-```
-:::
-
-::: good
-
-```js
-const head = text.slice(0, 1)
-```
-:::
-
-::: tip
-unicorn 共启用 170+ 条规则，完整列表见 [全部规则](../reference/rules)。
-:::
+完整生效规则见 [全部规则](../reference/rules)。

@@ -35,6 +35,6 @@ jobs:
 
       - name: Publish to npm (trusted publishing, no token)
         run: |
-          for pkg in eslint-config prettier-config create-config; do
+          for pkg in eslint-config create-config; do
             ( cd "packages/$pkg" && npm publish --access public --ignore-scripts )
           done

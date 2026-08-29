@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 /** 注册 ❌/✅ 示例容器：固定标签，配合 custom.css 渲染红/绿卡片。 */
 const exampleContainer = (md, name, label, variant) => {
   md.use(container, name, {
-    render(tokens, index) {
+    render (tokens, index) {
       if (tokens[index].nesting === 1) {
         return `<div class="ls-example ls-${variant}"><div class="ls-example-label">${label}</div>\n`
       }
@@ -18,7 +18,7 @@ const zhNav = [
   { text: '指南', link: '/guide/introduction' },
   { text: '规则层', link: '/layers/base' },
   { text: '配置项', link: '/guide/options' },
-  { text: 'Prettier', link: '/guide/prettier' },
+  { text: '格式化', link: '/guide/formatting' },
   { text: '全部规则', link: '/reference/rules' },
 ]
 
@@ -28,6 +28,7 @@ const zhSidebar = [
     items: [
       { text: '简介', link: '/guide/introduction' },
       { text: '快速开始', link: '/guide/getting-started' },
+      { text: '格式化', link: '/guide/formatting' },
       { text: '配置项总览', link: '/guide/options' },
     ],
   },
@@ -41,12 +42,8 @@ const zhSidebar = [
       { text: 'perfectionist', link: '/layers/perfectionist' },
       { text: 'React', link: '/layers/react' },
       { text: 'Vue', link: '/layers/vue' },
-      { text: 'Prettier 协调层', link: '/layers/prettier' },
+      { text: 'Stylistic 格式层', link: '/layers/stylistic' },
     ],
-  },
-  {
-    text: 'Prettier',
-    items: [{ text: 'Prettier 配置', link: '/guide/prettier' }],
   },
   {
     text: '规则参考',
@@ -56,11 +53,11 @@ const zhSidebar = [
 
 export default defineConfig({
   title: 'Lintspec',
-  description: 'qwqo 的 ESLint 与 Prettier 共享规范',
+  description: 'qwqo 的 ESLint 代码质量与格式化规范',
   head: [['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }]],
   lastUpdated: true,
   markdown: {
-    config(md) {
+    config (md) {
       exampleContainer(md, 'bad', '不推荐', 'bad')
       exampleContainer(md, 'good', '推荐', 'good')
       exampleContainer(md, 'before', '格式化前', 'before')

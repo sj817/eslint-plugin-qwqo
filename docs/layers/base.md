@@ -1,6 +1,6 @@
 # 基线层
 
-规则全部为 ESLint 内置规则（不依赖任何插件），覆盖代码安全与潜在错误，**随任意配置默认启用**。
+规则全部为 ESLint 内置规则（不依赖任何插件），以 Neostandard 的社区基线为主，覆盖代码安全与潜在错误，**随任意配置默认启用**。
 
 > 标记说明：🔧 可通过 `eslint --fix` 自动修复 · 💡 在编辑器中提供修复建议。
 
@@ -13,6 +13,7 @@
 ```js
 const valid = a == 1
 ```
+
 :::
 
 ::: good
@@ -20,6 +21,7 @@ const valid = a == 1
 ```js
 const valid = a === 1
 ```
+
 :::
 
 ## 禁用 var（no-var） <span class="ls-cap ignore-header">🔧</span>
@@ -31,6 +33,7 @@ const valid = a === 1
 ```js
 var count = 0
 ```
+
 :::
 
 ::: good
@@ -38,6 +41,7 @@ var count = 0
 ```js
 let count = 0
 ```
+
 :::
 
 ## 优先 const（prefer-const） <span class="ls-cap ignore-header">🔧</span>
@@ -49,6 +53,7 @@ let count = 0
 ```js
 let name = 'lintspec'
 ```
+
 :::
 
 ::: good
@@ -56,6 +61,7 @@ let name = 'lintspec'
 ```js
 const name = 'lintspec'
 ```
+
 :::
 
 ## 对象简写（object-shorthand） <span class="ls-cap ignore-header">🔧</span>
@@ -67,6 +73,7 @@ const name = 'lintspec'
 ```js
 const user = { id: id, getName: function () {} }
 ```
+
 :::
 
 ::: good
@@ -74,29 +81,8 @@ const user = { id: id, getName: function () {} }
 ```js
 const user = { id, getName() {} }
 ```
+
 :::
-
-## 禁止多余的三元（no-unneeded-ternary） <span class="ls-cap ignore-header">🔧</span>
-
-约定去掉多余的布尔三元，默认用取反形式（`!!` / `!`，与 `eslint --fix` 产物一致）。
-
-::: bad
-
-```js
-const exists = items.find(item => item.active) ? true : false
-const missing = items.find(item => item.active) ? false : true
-```
-:::
-
-::: good
-
-```js
-const exists = !!items.find(item => item.active)
-const missing = !items.find(item => item.active)
-```
-:::
-
-> `Boolean(...)` 同样合法，若更看重可读性可改用它。
 
 ## 禁止抛出字面量（no-throw-literal）
 
@@ -107,6 +93,7 @@ const missing = !items.find(item => item.active)
 ```js
 throw 'something went wrong'
 ```
+
 :::
 
 ::: good
@@ -114,6 +101,7 @@ throw 'something went wrong'
 ```js
 throw new Error('something went wrong')
 ```
+
 :::
 
 ## 禁止 Yoda 条件（yoda） <span class="ls-cap ignore-header">🔧</span>
@@ -127,6 +115,7 @@ if (1 === status) {
   retry()
 }
 ```
+
 :::
 
 ::: good
@@ -136,6 +125,7 @@ if (status === 1) {
   retry()
 }
 ```
+
 :::
 
 ## 禁止无意义的重命名（no-useless-rename） <span class="ls-cap ignore-header">🔧</span>
@@ -147,6 +137,7 @@ if (status === 1) {
 ```js
 const { id: id } = user
 ```
+
 :::
 
 ::: good
@@ -154,59 +145,63 @@ const { id: id } = user
 ```js
 const { id } = user
 ```
-:::
 
-## 优先 Object.hasOwn（prefer-object-has-own） <span class="ls-cap ignore-header">🔧</span>
-
-约定使用 `Object.hasOwn`。
-
-::: bad
-
-```js
-const has = Object.prototype.hasOwnProperty.call(object, key)
-```
-:::
-
-::: good
-
-```js
-const has = Object.hasOwn(object, key)
-```
 :::
 
 ## 禁止未使用变量（no-unused-vars） <span class="ls-cap ignore-header">💡</span>
 
-约定不保留未使用的变量（以 `_` 开头的参数除外）。
+约定不保留未使用的局部变量。函数参数和 `catch` 绑定不在默认检查范围内，避免为了规则批量改签名或重命名。
 
 ::: bad
 
 ```js
-function handle(used, extra) {
-  return used
-}
+const unused = createValue()
+export const used = 1
 ```
+
 :::
 
 ::: good
 
 ```js
-function handle(used, _extra) {
-  return used
-}
+export const used = createValue()
 ```
+
 :::
+
+## 禁止 void 表达式（no-void）
+
+不允许用 `void` 丢弃函数返回值，尤其不能用 `void promise()` 把异步调用伪装成已处理。
+
+::: bad
+
+```ts
+void saveChanges()
+```
+
+:::
+
+::: good
+
+```ts
+await saveChanges()
+```
+
+:::
+
+若确实要忽略 Promise，应显式说明错误处理策略，例如使用 `catch`。TypeScript 项目建议同时开启 `typescript.typeAware`。
 
 ## 文件最大行数（max-lines）
 
-约定单个文件不宜过长，过长往往意味着职责过多、应当拆分。由 `maxLines` 选项控制上限（默认 **300** 行，统计时跳过空行与注释），超出仅 `warn` 提示、不阻断。
+约定单个文件不宜过长，过长往往意味着职责过多、应当拆分。由 `maxLines` 选项控制上限（默认 **500** 行，统计时跳过空行与注释），超出仅 `warn` 提示、不阻断。
 
 ::: bad
 
 ```js
-// utils.js —— 把所有工具函数塞进一个文件（420 行）
+// utils.js —— 把所有工具函数塞进一个文件（620 行）
 export function a() {}
 export function b() {}
-// …此处省略 400+ 行
+// …此处省略 600+ 行
 ```
 
 :::
@@ -226,7 +221,7 @@ import { b } from './utils/b'
 ```js
 // eslint.config.js
 export default lintspec({
-  maxLines: 500, // 放宽到 500 行
+  maxLines: 800, // 放宽到 800 行
   // maxLines: false, // 或彻底关闭
 })
 ```

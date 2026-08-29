@@ -1,49 +1,48 @@
 import type { Linter } from 'eslint'
 import eslintPluginUnicorn from 'eslint-plugin-unicorn'
 
-/** unicorn 推荐集中过于激进、默认关闭的规则。开启 `strict` 后这些规则会被启用。 */
-const unicornOverrides: Linter.RulesRecord = {
-  'unicorn/filename-case': 'off',
-  'unicorn/name-replacements': 'off', // v68 起由 prevent-abbreviations 更名而来
-  'unicorn/no-null': 'off',
-  'unicorn/no-array-reduce': 'off',
-  'unicorn/no-nested-ternary': 'off',
-  'unicorn/prefer-top-level-await': 'off',
-  // 纯风格偏好，过于武断：强制去掉 `new URL('./x')` 的 `./` 前缀、强制数字分隔符 `10_000`。
-  'unicorn/relative-url-style': 'off',
-  'unicorn/numeric-separators-style': 'off',
-  // v66+ 新增且高频武断：强制布尔名带 is/has 前缀(会波及配置项/参数命名)、
-  // 强制 `...(cond ? x : {})` 改写为 `...(cond && x)`。
-  'unicorn/consistent-boolean-name': 'off',
-  'unicorn/consistent-conditional-object-spread': 'off',
-  // 会误伤大量在模块顶层做初始化的单例/配置模块(如 axios 实例 + 拦截器注册)。
-  'unicorn/no-top-level-side-effects': 'off',
+/**
+ * 默认层只保留高置信度的错误、安全与规范违例检查。
+ * 明确列出允许项，可确保 Unicorn 升级时新增规则不会自动进入默认配置。
+ */
+const safeRules: Linter.RulesRecord = {
+  'unicorn/no-accessor-recursion': 'error',
+  'unicorn/no-boolean-sort-comparator': 'error',
+  'unicorn/no-duplicate-logical-operands': 'error',
+  'unicorn/no-impossible-length-comparison': 'error',
+  'unicorn/no-incorrect-query-selector': 'error',
+  'unicorn/no-instanceof-builtins': 'error',
+  'unicorn/no-invalid-argument-count': 'error',
+  'unicorn/no-invalid-character-comparison': 'error',
+  'unicorn/no-invalid-fetch-options': 'error',
+  'unicorn/no-invalid-remove-event-listener': 'error',
+  'unicorn/no-invalid-well-known-symbol-methods': 'error',
+  'unicorn/no-late-current-target-access': 'error',
+  'unicorn/no-late-event-control': 'error',
+  'unicorn/no-mismatched-map-key': 'error',
+  'unicorn/no-misrefactored-assignment': 'error',
+  'unicorn/no-new-buffer': 'error',
+  'unicorn/no-optional-chaining-on-undeclared-variable': 'error',
+  'unicorn/no-unsafe-buffer-conversion': 'error',
+  'unicorn/no-unsafe-promise-all-settled-values': 'error',
+  'unicorn/no-unsafe-property-key': 'error',
+  'unicorn/no-unsafe-string-replacement': 'error',
+  'unicorn/require-proxy-trap-boolean-return': 'error',
 }
 
 /**
- * unicorn 现代化增强层：基于 unicorn 推荐配置（覆盖其绝大多数规则）。
+ * Unicorn 安全增强层。默认仅启用明确白名单；`strict` 才启用完整推荐集。
  *
  * @param files - 该层适用的文件匹配模式
- * @param strict - 是否启用默认关闭的 11 条激进规则
+ * @param strict - 是否显式启用完整 Unicorn 推荐规则
  */
-export function unicornPreset(files: string[], strict: boolean): Linter.Config[] {
+export function unicornPreset (files: string[], strict: boolean): Linter.Config[] {
   const recommended = eslintPluginUnicorn.configs.recommended as Linter.Config
 
-  const configs: Linter.Config[] = [
-    {
-      ...recommended,
-      name: 'qwqo/unicorn',
-      files,
-    },
-  ]
-
-  if (!strict) {
-    configs.push({
-      name: 'qwqo/unicorn/overrides',
-      files,
-      rules: unicornOverrides,
-    })
-  }
-
-  return configs
+  return [{
+    ...recommended,
+    name: strict ? 'qwqo/unicorn/strict' : 'qwqo/unicorn',
+    files,
+    rules: strict ? recommended.rules : safeRules,
+  }]
 }

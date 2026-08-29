@@ -1,120 +1,19 @@
-# React
+# React 层
 
-基于 flat config 原生的 [@eslint-react](https://eslint-react.xyz/)（兼容 ESLint 10），并补充 `react-hooks` 的 `exhaustive-deps` 依赖检查规则。作用于 `.jsx` / `.tsx` 文件。
+React 层默认只启用明确的正确性检查，以及 React 官方 Hooks 规则。它不会自动迁移 React API、重命名引用或为编译器重写组件结构。
+
+默认检查包括：
+
+- state 直接修改与缺失 `key`；
+- `children`、spread 后的 `key` 和 JSX namespace 错误；
+- void element、iframe sandbox、危险 HTML 与 script URL 的明显 DOM 问题；
+- `react-hooks/rules-of-hooks` 与 `react-hooks/exhaustive-deps`。
 
 ```js
-import lintspec from '@qwqo/eslint-config'
-
-export default lintspec({ react: true })
+export default lintspec({
+  browser: true,
+  react: true,
+})
 ```
 
-> 标记说明：🔧 可通过 `eslint --fix` 自动修复 · 💡 在编辑器中提供修复建议。
-
-## Hook 依赖完整（react-hooks/exhaustive-deps） <span class="ls-cap ignore-header">🔧 💡</span>
-
-约定 `useEffect` 等 Hook 的依赖数组保持完整。
-
-::: bad
-
-```jsx
-useEffect(() => {
-  console.log(value)
-}, [])
-```
-:::
-
-::: good
-
-```jsx
-useEffect(() => {
-  console.log(value)
-}, [value])
-```
-:::
-
-## 列表须有 key（no-missing-key）
-
-列表渲染约定提供 `key`。
-
-::: bad
-
-```jsx
-items.map(item => <li>{item.label}</li>)
-```
-:::
-
-::: good
-
-```jsx
-items.map(item => <li key={item.id}>{item.label}</li>)
-```
-:::
-
-## 禁止用数组下标作 key（no-array-index-key）
-
-约定不用数组下标作为 `key`。
-
-::: bad
-
-```jsx
-items.map((item, index) => <li key={index}>{item.label}</li>)
-```
-:::
-
-::: good
-
-```jsx
-items.map(item => <li key={item.id}>{item.label}</li>)
-```
-:::
-
-## 禁止嵌套定义组件（no-nested-component-definitions）
-
-约定不要在组件内部定义组件（每次渲染都会重建，破坏状态）。
-
-::: bad
-
-```jsx
-export function Page() {
-  function Item() {
-    return <span />
-  }
-  return <Item />
-}
-```
-:::
-
-::: good
-
-```jsx
-function Item() {
-  return <span />
-}
-
-export function Page() {
-  return <Item />
-}
-```
-:::
-
-## 禁止 children 作属性（jsx-no-children-prop）
-
-约定通过子节点传递 children，而非 `children` 属性。
-
-::: bad
-
-```jsx
-<List children={items} />
-```
-:::
-
-::: good
-
-```jsx
-<List>{items}</List>
-```
-:::
-
-::: tip
-React 层共启用 60+ 条规则，完整列表见 [全部规则](../reference/rules)。
-:::
+React 19 迁移、Context/useRef 命名、组件结构偏好和编译器建议类规则均默认关闭。完整生效规则见 [全部规则](../reference/rules)。

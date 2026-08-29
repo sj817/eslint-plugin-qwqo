@@ -3,6 +3,7 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 
 import eslintReact from '@eslint-react/eslint-plugin'
+import stylistic from '@stylistic/eslint-plugin'
 import { builtinRules } from 'eslint/use-at-your-own-risk'
 import importX from 'eslint-plugin-import-x'
 import perfectionist from 'eslint-plugin-perfectionist'
@@ -24,7 +25,7 @@ const config = lintspec({
 })
 
 // 根据规则名前缀，从对应插件取出 meta。
-const metaFor = rule => {
+const metaFor = (rule) => {
   if (rule.startsWith('unicorn/')) return unicorn.rules[rule.slice(8)]?.meta
   if (rule.startsWith('@typescript-eslint/')) return tseslint.plugin.rules[rule.slice(19)]?.meta
   if (rule.startsWith('import-x/')) return importX.rules[rule.slice(9)]?.meta
@@ -34,11 +35,11 @@ const metaFor = rule => {
   if (rule.startsWith('@eslint-react/')) {
     return eslintReact.rules[rule.slice(14)]?.meta ?? eslintReact.rules[rule]?.meta
   }
+  if (rule.startsWith('@stylistic/')) return stylistic.rules[rule.slice(11)]?.meta
   if (!rule.includes('/')) return builtinRules.get(rule)?.meta
-  return
 }
 
-const capabilities = rule => {
+const capabilities = (rule) => {
   const meta = metaFor(rule)
   return { fix: meta?.fixable ? '✅' : '—', suggest: meta?.hasSuggestions ? '✅' : '—' }
 }
@@ -68,12 +69,13 @@ const optionOf = (rule, layer) => {
     perfectionist: '`perfectionist`',
     React: '`react`',
     Vue: '`vue`',
+    Stylistic: '`overrides`',
   }
   return map[layer] ?? '`overrides`'
 }
 
 // 按配置块名称归类到各规则层。
-const layerOf = name => {
+const layerOf = (name) => {
   if (!name) return null
   if (name === 'qwqo/base') return '基线层'
   if (name.startsWith('qwqo/unicorn')) return 'unicorn'
@@ -84,13 +86,23 @@ const layerOf = name => {
   if (name.startsWith('qwqo/perfectionist')) return 'perfectionist'
   if (name.startsWith('qwqo/react')) return 'React'
   if (name.startsWith('vue/') || name.startsWith('qwqo/vue')) return 'Vue'
+  if (name.startsWith('qwqo/stylistic')) return 'Stylistic'
   return null
 }
 
-const order = ['基线层', 'unicorn', 'TypeScript', 'import-x', 'perfectionist', 'React', 'Vue']
+const order = [
+  '基线层',
+  'unicorn',
+  'TypeScript',
+  'import-x',
+  'perfectionist',
+  'React',
+  'Vue',
+  'Stylistic',
+]
 const layers = new Map(order.map(name => [name, new Map()]))
 
-const severityOf = value => {
+const severityOf = (value) => {
   const level = Array.isArray(value) ? value[0] : value
   if (level === 'error' || level === 2) return 'error'
   if (level === 'warn' || level === 1) return 'warn'

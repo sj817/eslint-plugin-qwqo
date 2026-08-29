@@ -1,10 +1,28 @@
-node_modules
-dist
-build
-coverage
+# Code is formatted exclusively by ESLint Stylistic.
+**/*.cjs
+**/*.cts
+**/*.js
+**/*.jsx
+**/*.mjs
+**/*.mts
+**/*.ts
+**/*.tsx
+**/*.vue
+
+# Generated or dependency-managed files.
 pnpm-lock.yaml
-docs/.vitepress/cache
-docs/.vitepress/dist
-.playwright-cli
+**/package-lock.json
+**/node_modules/**
+**/dist/**
+**/build/**
+**/out/**
+**/coverage/**
+**/.cache/**
+**/.next/**
+**/.nuxt/**
+**/.output/**
+**/.turbo/**
+**/.vitepress/cache/**
+**/.vitepress/dist/**
+**/.playwright-cli/**
 **/CHANGELOG.md
-docs/**/*.md
