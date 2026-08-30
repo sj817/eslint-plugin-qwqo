@@ -1,11 +1,17 @@
 # import-x
 
-基于 [eslint-plugin-import-x](https://github.com/un-ts/eslint-plugin-import-x)，校验导入的正确性。启用 `typescript` 时会自动追加 TypeScript 解析设置。
+基于 [eslint-plugin-import-x](https://github.com/un-ts/eslint-plugin-import-x)，校验导入的正确性。该层默认开启；启用 `typescript` 时会自动追加 TypeScript 解析设置。
 
 ```js
 import lintspec from '@qwqo/eslint-config'
 
-export default lintspec({ importX: true })
+export default lintspec()
+```
+
+不需要导入检查时可显式关闭：
+
+```js
+export default lintspec({ importX: false })
 ```
 
 TypeScript 项目会通过 `eslint-import-resolver-typescript` 读取 tsconfig。Monorepo 的根

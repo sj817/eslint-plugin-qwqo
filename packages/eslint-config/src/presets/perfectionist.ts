@@ -1,5 +1,5 @@
 import type { Linter } from 'eslint'
-import perfectionist from 'eslint-plugin-perfectionist'
+import { configs as perfectionistConfigs } from 'eslint-plugin-perfectionist'
 
 import { GLOB_JS_TS } from '../globs'
 
@@ -16,7 +16,7 @@ export type PerfectionistSort = 'line-length' | 'natural'
 export function perfectionistPreset (sort: PerfectionistSort, objects: boolean): Linter.Config[] {
   const configs: Linter.Config[] = [
     {
-      ...(perfectionist.configs['recommended-natural'] as Linter.Config),
+      ...(perfectionistConfigs['recommended-natural'] as Linter.Config),
       name: 'qwqo/perfectionist',
       files: GLOB_JS_TS,
     },

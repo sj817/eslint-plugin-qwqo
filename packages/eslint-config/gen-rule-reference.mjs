@@ -5,8 +5,8 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import eslintReact from '@eslint-react/eslint-plugin'
 import stylistic from '@stylistic/eslint-plugin'
 import { builtinRules } from 'eslint/use-at-your-own-risk'
-import importX from 'eslint-plugin-import-x'
-import perfectionist from 'eslint-plugin-perfectionist'
+import { rules as importRules } from 'eslint-plugin-import-x'
+import { rules as perfectionistRules } from 'eslint-plugin-perfectionist'
 import reactHooks from 'eslint-plugin-react-hooks'
 import unicorn from 'eslint-plugin-unicorn'
 import vue from 'eslint-plugin-vue'
@@ -28,8 +28,8 @@ const config = lintspec({
 const metaFor = (rule) => {
   if (rule.startsWith('unicorn/')) return unicorn.rules[rule.slice(8)]?.meta
   if (rule.startsWith('@typescript-eslint/')) return tseslint.plugin.rules[rule.slice(19)]?.meta
-  if (rule.startsWith('import-x/')) return importX.rules[rule.slice(9)]?.meta
-  if (rule.startsWith('perfectionist/')) return perfectionist.rules[rule.slice(14)]?.meta
+  if (rule.startsWith('import-x/')) return importRules[rule.slice(9)]?.meta
+  if (rule.startsWith('perfectionist/')) return perfectionistRules[rule.slice(14)]?.meta
   if (rule.startsWith('vue/')) return vue.rules[rule.slice(4)]?.meta
   if (rule.startsWith('react-hooks/')) return reactHooks.rules[rule.slice(12)]?.meta
   if (rule.startsWith('@eslint-react/')) {

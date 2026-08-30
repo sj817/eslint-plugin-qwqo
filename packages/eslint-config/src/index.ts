@@ -23,7 +23,8 @@ export interface TypeScriptOptions {
 /** unicorn 规则层的细粒度配置。 */
 export interface UnicornOptions {
   /**
-   * 是否启用完整 Unicorn 推荐集，包括默认关闭的迁移与语义重写规则。
+   * 是否启用扩展 Unicorn 推荐集，包括默认关闭的迁移与语义重写规则。
+   * 两条数字字面量格式规则仍保持全局关闭。
    * @default false
    */
   strict?: boolean
@@ -88,7 +89,7 @@ export interface LintspecOptions {
   typescript?: boolean | TypeScriptOptions
   /**
    * 启用 eslint-plugin-import-x 导入管理层。传入对象可关闭无后缀强制。
-   * @default false
+   * @default true
    */
   importX?: boolean | ImportXOptions
   /**
@@ -148,7 +149,7 @@ export default function lintspec (options: LintspecOptions = {}): Linter.Config[
     browser = false,
     unicorn = true,
     typescript = false,
-    importX = false,
+    importX = true,
     perfectionist = false,
     react = false,
     vue = false,

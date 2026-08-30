@@ -8,9 +8,10 @@ function names (config: ReturnType<typeof lintspec>): string[] {
 }
 
 describe('lintspec 工厂', () => {
-  it('默认包含基线、unicorn 与 Stylistic 格式层', () => {
+  it('默认包含基线、import、unicorn 与 Stylistic 格式层', () => {
     const layers = names(lintspec())
     expect(layers).toContain('qwqo/base')
+    expect(layers).toContain('qwqo/import')
     expect(layers).toContain('qwqo/unicorn')
     expect(layers).toContain('qwqo/stylistic')
   })
@@ -30,6 +31,18 @@ describe('lintspec 工厂', () => {
 
   it('unicorn 可关闭', () => {
     expect(names(lintspec({ unicorn: false }))).not.toContain('qwqo/unicorn')
+  })
+
+  it('importX 默认开启且可关闭', () => {
+    expect(names(lintspec())).toContain('qwqo/import')
+    expect(names(lintspec({ importX: false }))).not.toContain('qwqo/import')
+  })
+
+  it('默认 import 层不擅自接管未启用的 TypeScript 文件', () => {
+    const javascript = lintspec().find(item => item.name === 'qwqo/import')
+    const typescript = lintspec({ typescript: true }).find(item => item.name === 'qwqo/import')
+    expect(javascript?.files).toEqual(['**/*.{js,mjs,cjs,jsx}'])
+    expect(typescript?.files).toEqual(['**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'])
   })
 
   it('typescript 开关控制 TypeScript 层', () => {
@@ -68,13 +81,23 @@ describe('lintspec 工厂', () => {
       expect(defaults?.rules?.[rule]).toBeUndefined()
     }
     expect(defaults?.rules?.['unicorn/no-invalid-fetch-options']).toBe('error')
-    expect(Object.keys(defaults?.rules ?? {})).toHaveLength(22)
+    expect(
+      Object.values(defaults?.rules ?? {}).filter(value => value !== 'off' && value !== 0),
+    ).toHaveLength(22)
 
     const strict = lintspec({ unicorn: { strict: true } }).find(
       item => item.name === 'qwqo/unicorn/strict',
     )
     for (const rule of disabledByDefault) {
       expect(strict?.rules?.[rule]).toBeDefined()
+    }
+
+    for (const rule of [
+      'unicorn/number-literal-case',
+      'unicorn/numeric-separators-style',
+    ]) {
+      expect(defaults?.rules?.[rule]).toBe('off')
+      expect(strict?.rules?.[rule]).toBe('off')
     }
   })
 

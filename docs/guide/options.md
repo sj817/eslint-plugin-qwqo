@@ -18,7 +18,7 @@ export default lintspec({
   // —— 规则层（布尔开关 或 子选项对象）——
   unicorn: true, // 22 条高置信度纠错规则，默认开启
   typescript: false, // TypeScript 规则层
-  importX: false, // import-x 导入管理层
+  importX: true, // import-x 导入管理层，默认开启
   perfectionist: false, // perfectionist 排序层
   react: false, // React 层
   vue: false, // Vue 层
@@ -41,7 +41,7 @@ export default lintspec({
 | `browser`       | `boolean`                                                         | `false`                     | 启用浏览器全局变量                                         |
 | `unicorn`       | `boolean \| { strict? }`                                          | `true`                      | 启用 [unicorn](../layers/unicorn) 安全纠错层               |
 | `typescript`    | `boolean \| { typeAware? }`                                       | `false`                     | 启用 [TypeScript](../layers/typescript) 层                 |
-| `importX`       | `boolean \| { extensions?, project?, noWarnOnMultipleProjects? }` | `false`                     | 启用 [import-x](../layers/import) 导入管理层               |
+| `importX`       | `boolean \| { extensions?, project?, noWarnOnMultipleProjects? }` | `true`                      | 启用 [import-x](../layers/import) 导入管理层               |
 | `perfectionist` | `boolean \| { sort? }`                                            | `false`                     | 启用 [perfectionist](../layers/perfectionist) 排序层       |
 | `react`         | `boolean`                                                         | `false`                     | 启用 [React](../layers/react) 层                           |
 | `vue`           | `boolean`                                                         | `false`                     | 启用 [Vue](../layers/vue) 层                               |
@@ -74,7 +74,7 @@ export default lintspec({
 
 | 子选项                             | 默认值          | 作用                                                  |
 | ---------------------------------- | --------------- | ----------------------------------------------------- |
-| `unicorn.strict`                   | `false`         | 启用完整推荐集，包括默认关闭的迁移与语义重写规则      |
+| `unicorn.strict`                   | `false`         | 启用扩展推荐集；两条数字字面量格式规则仍保持关闭      |
 | `typescript.typeAware`             | `false`         | 启用需要类型信息的规则（依赖 tsconfig）               |
 | `importX.extensions`               | `true`          | 是否强制相对导入省略后缀；NodeNext 项目可设为 `false` |
 | `importX.project`                  | `undefined`     | TypeScript resolver 使用的 tsconfig 路径或 glob       |
@@ -86,7 +86,7 @@ export default lintspec({
 export default lintspec({
   node: true,
   typescript: { typeAware: true }, // 开启类型感知规则
-  unicorn: { strict: true }, // 开启全部 unicorn 规则
+  unicorn: { strict: true }, // 开启扩展规则；数字字面量格式规则仍关闭
   importX: { extensions: false }, // 关闭无后缀强制
   perfectionist: { sort: 'natural' }, // 改用自然排序
 })
@@ -98,7 +98,7 @@ export default lintspec({
 
 ### 最小 JS 项目
 
-仅基线层 + unicorn（默认开启），加上 Node 全局。
+使用默认开启的基线层、import-x 与安全 Unicorn，再加上 Node 全局。
 
 ```js
 import lintspec from '@qwqo/eslint-config'
@@ -114,7 +114,6 @@ import lintspec from '@qwqo/eslint-config'
 export default lintspec({
   node: true,
   typescript: true,
-  importX: true,
   perfectionist: true,
 })
 ```
@@ -128,7 +127,6 @@ export default lintspec({
   browser: true,
   typescript: true,
   vue: true,
-  importX: true,
   perfectionist: true,
 })
 ```
@@ -142,7 +140,6 @@ export default lintspec({
   browser: true,
   typescript: true,
   react: true,
-  importX: true,
   perfectionist: true,
 })
 ```

@@ -1,6 +1,6 @@
 import type { Linter } from 'eslint'
 import vue from 'eslint-plugin-vue'
-import tseslint from 'typescript-eslint'
+import { parser } from 'typescript-eslint'
 
 import { GLOB_VUE } from '../globs'
 
@@ -18,7 +18,7 @@ export function vuePreset (typescript: boolean): Linter.Config[] {
       files: GLOB_VUE,
       languageOptions: {
         parserOptions: {
-          parser: tseslint.parser,
+          parser,
           tsconfigRootDir: process.cwd(),
         },
       },

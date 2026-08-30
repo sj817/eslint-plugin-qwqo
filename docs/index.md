@@ -25,7 +25,7 @@ features:
     details: eslint --fix 同时处理代码问题与代码格式，不再让第二个工具重新打印 JS/TS。
   - icon: { src: /icons/layers.svg, width: 26, height: 26 }
     title: 分层可选
-    details: 基线、TypeScript、import-x、perfectionist、React、Vue、unicorn 各自独立，按需开启。
+    details: 基线、import-x 与安全 Unicorn 默认启用，其余 TypeScript、React、Vue 和排序层按需开启。
   - icon: { src: /icons/sparkles.svg, width: 26, height: 26 }
     title: Neostandard 风格
     details: 无分号、单引号、自然换行，并为所有多行结构保留尾随逗号。
@@ -56,7 +56,6 @@ import lintspec from '@qwqo/eslint-config'
 export default lintspec({
   node: true,
   typescript: true,
-  importX: true,
   perfectionist: true,
 })
 ```

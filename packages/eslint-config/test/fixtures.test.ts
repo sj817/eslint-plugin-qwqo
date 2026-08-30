@@ -37,7 +37,7 @@ describe('规则层运行时校验', () => {
 
   it('import 层捕获重复导入', async () => {
     const ids = await lint(
-      { importX: true },
+      {},
       'sample.js',
       'import a from "./mod.js"\nimport b from "./mod.js"\nexport { a, b }\n',
     )
@@ -84,6 +84,15 @@ describe('新增规则校验', () => {
   it('默认不重写多余三元', async () => {
     const ids = await lint({}, 'sample.js', 'export const f = a => (a ? true : false)\n')
     expect(ids).not.toContain('no-unneeded-ternary')
+  })
+
+  it('默认保留数字分隔符与数字字面量大小写', async () => {
+    const code = 'export const timeout = 30_000\nexport const mask = 0xffffffff\n'
+    const ids = await lint({}, 'sample.js', code)
+    expect(ids).not.toContain('unicorn/numeric-separators-style')
+    expect(ids).not.toContain('unicorn/number-literal-case')
+    expect(await fix({}, 'sample.js', code)).toBe(code)
+    expect(await fix({ unicorn: { strict: true } }, 'sample.js', code)).toBe(code)
   })
 
   it('禁止用 void 丢弃 Promise', async () => {

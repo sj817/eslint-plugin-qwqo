@@ -42,9 +42,9 @@ import lintspec from '@qwqo/eslint-config'
 export default lintspec({
   node: true,
   browser: false,
-  unicorn: true, // 默认仅启用 22 条安全纠错规则；strict 才启用完整规则集
+  unicorn: true, // 默认仅启用 22 条安全纠错规则；strict 才启用扩展规则集
   typescript: true, // 或 { typeAware: true }
-  importX: true, // 或 { extensions: false }
+  importX: true, // 默认开启；false 关闭，或传 { extensions: false }
   perfectionist: true, // 或 { sort: 'natural', objects: true }
   react: true,
   vue: true,

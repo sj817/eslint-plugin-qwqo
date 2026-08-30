@@ -30,11 +30,18 @@ const safeRules: Linter.RulesRecord = {
   'unicorn/require-proxy-trap-boolean-return': 'error',
 }
 
+/** 数字分隔符与十六进制大小写会制造阅读噪音，在所有模式下保持关闭。 */
+const globallyDisabledRules: Linter.RulesRecord = {
+  'unicorn/number-literal-case': 'off',
+  'unicorn/numeric-separators-style': 'off',
+}
+
 /**
- * Unicorn 安全增强层。默认仅启用明确白名单；`strict` 才启用完整推荐集。
+ * Unicorn 安全增强层。默认仅启用明确白名单；`strict` 才启用扩展推荐集。
+ * 数字分隔符与字面量大小写规则始终关闭。
  *
  * @param files - 该层适用的文件匹配模式
- * @param strict - 是否显式启用完整 Unicorn 推荐规则
+ * @param strict - 是否显式启用扩展 Unicorn 推荐规则
  */
 export function unicornPreset (files: string[], strict: boolean): Linter.Config[] {
   const recommended = eslintPluginUnicorn.configs.recommended as Linter.Config
@@ -43,6 +50,9 @@ export function unicornPreset (files: string[], strict: boolean): Linter.Config[
     ...recommended,
     name: strict ? 'qwqo/unicorn/strict' : 'qwqo/unicorn',
     files,
-    rules: strict ? recommended.rules : safeRules,
+    rules: {
+      ...(strict ? recommended.rules : safeRules),
+      ...globallyDisabledRules,
+    },
   }]
 }

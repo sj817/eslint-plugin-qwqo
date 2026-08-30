@@ -17,6 +17,8 @@ Unicorn 默认只启用固定的 **22 条高置信度纠错规则**。这是显�
 - Node、DOM 与 JavaScript API 替换；
 - 面向特定运行时或兼容性目标的现代化建议。
 
+`numeric-separators-style` 与 `number-literal-case` 会干扰数字字面量阅读，因此不仅默认关闭，在 `strict` 模式下也保持关闭。`30_000`、`50_000`、时间戳分隔符和 `0xffffffff` 都会保留作者写法。
+
 因此默认的完整 `eslint --fix` 不会执行 `forEach` → `for...of`、`appendChild` → `append`、`window` → `globalThis`、`getElementById` → `querySelector`、`replace` → `replaceAll` 等迁移。
 
 ## 默认规则
@@ -48,14 +50,14 @@ require-proxy-trap-boolean-return
 
 ## 严格模式
 
-只有主动选择完整 Unicorn 推荐集时才开启严格模式：
+只有主动选择扩展 Unicorn 推荐集时才开启严格模式：
 
 ```js
 export default lintspec({ unicorn: { strict: true } })
 ```
 
 ::: warning
-`strict` 会带回控制流、API、异步、类与数据结构迁移规则。它适合愿意逐条审查迁移结果的新项目，不属于默认安全边界。
+`strict` 会带回控制流、API、异步、类与数据结构迁移规则。它适合愿意逐条审查迁移结果的新项目，不属于默认安全边界；两条数字字面量格式规则仍全局关闭。
 :::
 
 完整生效规则见 [全部规则](../reference/rules)。

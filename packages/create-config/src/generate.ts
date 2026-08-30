@@ -17,7 +17,7 @@ export function buildEslintConfig (answers: ScaffoldAnswers): string {
   if (typescript) lines.push('  typescript: true,')
   if (framework === 'react') lines.push('  react: true,')
   else if (framework === 'vue') lines.push('  vue: true,')
-  lines.push('  importX: true,', '  perfectionist: true,')
+  lines.push('  perfectionist: true,')
 
   return `import lintspec from '@qwqo/eslint-config'
 

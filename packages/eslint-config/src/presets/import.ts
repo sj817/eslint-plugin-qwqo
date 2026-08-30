@@ -1,8 +1,8 @@
 import type { Linter } from 'eslint'
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
-import importX from 'eslint-plugin-import-x'
+import { flatConfigs as importXFlatConfigs } from 'eslint-plugin-import-x'
 
-import { GLOB_JS_TS, GLOB_TS } from '../globs'
+import { GLOB_JS, GLOB_JS_TS, GLOB_TS } from '../globs'
 
 /**
  * 导入管理层：基于 eslint-plugin-import-x，校验未解析、重复等导入问题。
@@ -18,18 +18,19 @@ export function importPreset (
   project?: string | string[],
   noWarnOnMultipleProjects?: boolean,
 ): Linter.Config[] {
+  const files = typescript ? GLOB_JS_TS : GLOB_JS
   const configs: Linter.Config[] = [
     {
-      ...(importX.flatConfigs.recommended as Linter.Config),
+      ...(importXFlatConfigs.recommended as Linter.Config),
       name: 'qwqo/import',
-      files: GLOB_JS_TS,
+      files,
     },
   ]
 
   if (typescript) {
     configs.push(
       {
-        ...(importX.flatConfigs.typescript as Linter.Config),
+        ...(importXFlatConfigs.typescript as Linter.Config),
         name: 'qwqo/import/typescript',
         files: GLOB_TS,
       },
@@ -53,7 +54,7 @@ export function importPreset (
     // 相对导入一律省略后缀（bundler / tsc moduleResolution bundler 风格），npm 包不受影响。
     configs.push({
       name: 'qwqo/import/extensions',
-      files: GLOB_JS_TS,
+      files,
       rules: {
         'import-x/extensions': [
           'error',

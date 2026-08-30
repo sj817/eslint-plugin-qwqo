@@ -16,7 +16,7 @@ describe('buildEslintConfig', () => {
     expect(out).toContain("import lintspec from '@qwqo/eslint-config'")
     expect(out).toContain('node: true,')
     expect(out).toContain('typescript: true,')
-    expect(out).toContain('importX: true,')
+    expect(out).not.toContain('importX:')
     expect(out).toContain('perfectionist: true,')
     expect(out).not.toContain('browser')
     expect(out).not.toContain('react')

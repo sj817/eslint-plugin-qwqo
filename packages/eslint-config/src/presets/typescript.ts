@@ -1,5 +1,5 @@
 import type { ESLint, Linter } from 'eslint'
-import tseslint from 'typescript-eslint'
+import { parser, plugin } from 'typescript-eslint'
 
 import { GLOB_TS } from '../globs'
 import { baseRules } from '../rules/base'
@@ -28,7 +28,7 @@ const compilerCheckedRules: Linter.RulesRecord = {
 function typescriptRules (typeAware: boolean): Linter.RulesRecord {
   const deactivatedRules: Linter.RulesRecord = { ...compilerCheckedRules }
   const replacements: Linter.RulesRecord = {}
-  const rules = (tseslint.plugin as unknown as ESLint.Plugin).rules ?? {}
+  const rules = (plugin as unknown as ESLint.Plugin).rules ?? {}
 
   for (const [ruleId, rule] of Object.entries(rules)) {
     const current = baseRules[ruleId]
@@ -57,13 +57,13 @@ export function typescriptPreset (typeAware: boolean): Linter.Config[] {
     name: 'qwqo/typescript/overrides',
     files: GLOB_TS,
     languageOptions: {
-      parser: tseslint.parser,
+      parser,
       parserOptions: {
         tsconfigRootDir: process.cwd(),
       },
     },
     plugins: {
-      '@typescript-eslint': tseslint.plugin,
+      '@typescript-eslint': plugin,
     },
     rules: {
       ...typescriptRules(typeAware),
