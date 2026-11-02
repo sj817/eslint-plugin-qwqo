@@ -3,9 +3,9 @@
 基于 [eslint-plugin-perfectionist](https://perfectionist.dev/) 的排序层。对象、类型等按自然顺序排序；import 单独配置分组与行长排序。全部支持自动修复。
 
 ```js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({ perfectionist: true })
+export default qwqo({ perfectionist: true })
 ```
 
 > 标记说明：🔧 可通过 `eslint --fix` 自动修复 · 💡 在编辑器中提供修复建议。
@@ -49,7 +49,7 @@ import type { Linter } from 'eslint'
 如更习惯自然（字母）顺序，可切换：
 
 ```js
-export default lintspec({ perfectionist: { sort: 'natural' } })
+export default qwqo({ perfectionist: { sort: 'natural' } })
 ```
 
 ## 具名导入排序（sort-named-imports） <span class="ls-cap ignore-header">🔧</span>

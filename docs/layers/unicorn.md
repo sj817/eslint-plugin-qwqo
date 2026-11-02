@@ -1,6 +1,6 @@
 # Unicorn 层
 
-Unicorn 默认只启用固定的 **22 条高置信度纠错规则**。这是显式白名单，不继承插件的完整推荐集，因此插件以后增加新规则，也不会悄悄进入 Lintspec 默认配置。
+Unicorn 默认只启用固定的 **22 条高置信度纠错规则**。这是显式白名单，不继承插件的完整推荐集，因此插件以后增加新规则，也不会悄悄进入本包默认配置。
 
 默认规则只检查能够明确证明有问题的代码，例如：
 
@@ -53,7 +53,7 @@ require-proxy-trap-boolean-return
 只有主动选择扩展 Unicorn 推荐集时才开启严格模式：
 
 ```js
-export default lintspec({ unicorn: { strict: true } })
+export default qwqo({ unicorn: { strict: true } })
 ```
 
 ::: warning

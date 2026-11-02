@@ -2,123 +2,122 @@
 
 本页由配置自动生成，列出每一层启用的全部规则。具体规则的 ❌/✅ 示例见各[规则层](../layers/base)页面。
 
-- **配置方式**：控制该规则的 `lintspec()` 选项；基线层规则只能通过 `overrides` 调整。
+- **配置方式**：控制该规则的 `qwqo()` 选项；基线层规则只能通过 `overrides` 调整。
 - **修复 / 建议**：✅ 修复 = 可通过 `eslint --fix` 自动修复；✅ 建议 = 在编辑器中提供修复建议。
 - **级别**：<span class="ls-sev ls-sev-error">错误</span> 报错并阻断；<span class="ls-sev ls-sev-warn">警告</span> 仅提示。
 
-## 基线层（109）
+## 基线层（108）
 
-| 规则名称                                                                         | 规则                              | 配置方式    | 级别                                          | 修复 | 建议 |
-| -------------------------------------------------------------------------------- | --------------------------------- | ----------- | --------------------------------------------- | ---- | ---- |
-| Enforce getter and setter pairs in objects and classes                           | `accessor-pairs`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 数组回调需返回值                                                                 | `array-callback-return`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| Enforce camelcase naming convention                                              | `camelcase`                       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 构造函数须调用 super()                                                           | `constructor-super`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Enforce consistent brace style for all control statements                        | `curly`                           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| default 置于最后                                                                 | `default-case-last`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 严格相等                                                                         | `eqeqeq`                          | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | ✅   |
-| for 计数方向正确                                                                 | `for-direction`                   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| getter 须返回值                                                                  | `getter-return`                   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 文件最大行数                                                                     | `max-lines`                       | `maxLines`  | <span class="ls-sev ls-sev-warn">警告</span>  | —    | —    |
-| Require constructor names to begin with a capital letter                         | `new-cap`                         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow `Array` constructors                                                    | `no-array-constructor`            | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | ✅   |
-| 禁止 async Promise executor                                                      | `no-async-promise-executor`       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow the use of `arguments.caller` or `arguments.callee`                     | `no-caller`                       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止 case 内声明                                                                 | `no-case-declarations`            | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| 禁止重写类                                                                       | `no-class-assign`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止与 -0 比较                                                                   | `no-compare-neg-zero`             | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止条件中赋值                                                                   | `no-cond-assign`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止重写 const                                                                   | `no-const-assign`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止无效的常量运算                                                               | `no-constant-binary-expression`   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止常量条件                                                                     | `no-constant-condition`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止构造函数返回值                                                               | `no-constructor-return`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow control characters in regular expressions                               | `no-control-regex`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁用 debugger                                                                    | `no-debugger`                     | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止 delete 变量                                                                 | `no-delete-var`                   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止重复函数参数                                                                 | `no-dupe-args`                    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止重复类成员                                                                   | `no-dupe-class-members`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止重复的 else-if 条件                                                          | `no-dupe-else-if`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止重复对象键                                                                   | `no-dupe-keys`                    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止重复 case                                                                    | `no-duplicate-case`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止空代码块                                                                     | `no-empty`                        | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| 禁止空字符类                                                                     | `no-empty-character-class`        | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止空解构                                                                       | `no-empty-pattern`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止空静态块                                                                     | `no-empty-static-block`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| 禁用 eval                                                                        | `no-eval`                         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止重写异常参数                                                                 | `no-ex-assign`                    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止扩展原生类型                                                                 | `no-extend-native`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止多余的 bind                                                                  | `no-extra-bind`                   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| Disallow unnecessary boolean casts                                               | `no-extra-boolean-cast`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| 禁止 case 穿透                                                                   | `no-fallthrough`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止重写函数声明                                                                 | `no-func-assign`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止改写全局对象                                                                 | `no-global-assign`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止隐式 eval                                                                    | `no-implied-eval`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止给导入赋值                                                                   | `no-import-assign`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow invalid regular expression strings in `RegExp` constructors             | `no-invalid-regexp`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止异常空白字符                                                                 | `no-irregular-whitespace`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow the use of the `__iterator__` property                                  | `no-iterator`                     | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow labeled statements                                                      | `no-labels`                       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow unnecessary nested blocks                                               | `no-lone-blocks`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止精度丢失的数字                                                               | `no-loss-of-precision`            | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止误导性字符类                                                                 | `no-misleading-character-class`   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| Disallow multiline strings                                                       | `no-multi-str`                    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow `new` operators outside of assignments or comparisons                   | `no-new`                          | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止 Function 构造函数                                                           | `no-new-func`                     | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止 new 非构造函数                                                              | `no-new-native-nonconstructor`    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow `new` operators with the `String`, `Number`, and `Boolean` objects      | `no-new-wrappers`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止把全局对象当函数调用                                                         | `no-obj-calls`                    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow calls to the `Object` constructor without an argument                   | `no-object-constructor`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| Disallow octal literals                                                          | `no-octal`                        | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow octal escape sequences in string literals                               | `no-octal-escape`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止 Promise executor 返回值                                                     | `no-promise-executor-return`      | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| Disallow the use of the `__proto__` property                                     | `no-proto`                        | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止直接调用 Object.prototype 方法                                               | `no-prototype-builtins`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| 禁止重复声明                                                                     | `no-redeclare`                    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止正则中多个空格                                                               | `no-regex-spaces`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| Disallow assignment operators in `return` statements                             | `no-return-assign`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止自我赋值                                                                     | `no-self-assign`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止自我比较                                                                     | `no-self-compare`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow comma operators                                                         | `no-sequences`                    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止 setter 返回值                                                               | `no-setter-return`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow identifiers from shadowing restricted names                             | `no-shadow-restricted-names`      | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止稀疏数组                                                                     | `no-sparse-arrays`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止普通字符串中的模板占位符                                                     | `no-template-curly-in-string`     | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止 super() 前用 this                                                           | `no-this-before-super`            | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止抛出字面量                                                                   | `no-throw-literal`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止未声明变量                                                                   | `no-undef`                        | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow initializing variables to `undefined`                                   | `no-undef-init`                   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| 禁止易混淆的多行表达式                                                           | `no-unexpected-multiline`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止未修改的循环条件                                                             | `no-unmodified-loop-condition`    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止不可达代码                                                                   | `no-unreachable`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止只执行一次的循环                                                             | `no-unreachable-loop`             | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止 finally 中的控制流                                                          | `no-unsafe-finally`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止关系运算符左侧取反                                                           | `no-unsafe-negation`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| 禁止不安全的可选链                                                               | `no-unsafe-optional-chaining`     | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow unused expressions                                                      | `no-unused-expressions`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止未使用的私有成员                                                             | `no-unused-private-class-members` | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| 禁止未使用变量                                                                   | `no-unused-vars`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| 禁止先使用后定义                                                                 | `no-use-before-define`            | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止无用的正则反向引用                                                           | `no-useless-backreference`        | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止多余的 call/apply                                                            | `no-useless-call`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止多余的 catch                                                                 | `no-useless-catch`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow unnecessary computed property keys in objects and classes               | `no-useless-computed-key`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| Disallow unnecessary constructors                                                | `no-useless-constructor`          | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| 禁止多余的转义                                                                   | `no-useless-escape`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| 禁止无意义的重命名                                                               | `no-useless-rename`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| Disallow redundant return statements                                             | `no-useless-return`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| 禁用 var                                                                         | `no-var`                          | `overrides` | <span class="ls-sev ls-sev-warn">警告</span>  | ✅   | —    |
-| Disallow `void` operators                                                        | `no-void`                         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow `with` statements                                                       | `no-with`                         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 对象简写                                                                         | `object-shorthand`                | `overrides` | <span class="ls-sev ls-sev-warn">警告</span>  | ✅   | —    |
-| Enforce variables to be declared either together or separately in functions      | `one-var`                         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| 优先 const                                                                       | `prefer-const`                    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| reject 须用 Error                                                                | `prefer-promise-reject-errors`    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow use of the `RegExp` constructor in favor of regular expression literals | `prefer-regex-literals`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| Require symbol descriptions                                                      | `symbol-description`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Require or disallow Unicode byte order mark (BOM)                                | `unicode-bom`                     | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| 用 isNaN 判断 NaN                                                                | `use-isnan`                       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| typeof 比较有效字符串                                                            | `valid-typeof`                    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
-| 禁止 Yoda 条件                                                                   | `yoda`                            | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| 规则名称                                                                              | 规则                            | 配置方式    | 级别                                          | 修复 | 建议 |
+| ------------------------------------------------------------------------------------- | ------------------------------- | ----------- | --------------------------------------------- | ---- | ---- |
+| Enforce getter and setter pairs in objects and classes                                | `accessor-pairs`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 数组回调需返回值                                                                      | `array-callback-return`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| Enforce camelcase naming convention                                                   | `camelcase`                     | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 构造函数须调用 super()                                                                | `constructor-super`             | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Enforce consistent brace style for all control statements                             | `curly`                         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| default 置于最后                                                                      | `default-case-last`             | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 严格相等                                                                              | `eqeqeq`                        | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | ✅   |
+| 文件最大行数                                                                          | `max-lines`                     | `maxLines`  | <span class="ls-sev ls-sev-warn">警告</span>  | —    | —    |
+| require error handling in callbacks                                                   | `n/handle-callback-err`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| enforce Node.js-style error-first callback pattern is followed                        | `n/no-callback-literal`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| disallow deprecated APIs                                                              | `n/no-deprecated-api`           | `overrides` | <span class="ls-sev ls-sev-warn">警告</span>  | —    | —    |
+| disallow the assignment to `exports`                                                  | `n/no-exports-assign`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| disallow `new` operators with calls to `require`                                      | `n/no-new-require`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| disallow string concatenation with `__dirname`, `__filename`, and `import.meta` paths | `n/no-path-concat`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| require that `process.exit()` expressions use the same code path as `throw`           | `n/process-exit-as-throw`       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| —                                                                                     | `neostandard/jsx-key`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Require constructor names to begin with a capital letter                              | `new-cap`                       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow `Array` constructors                                                         | `no-array-constructor`          | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | ✅   |
+| 禁止 async Promise executor                                                           | `no-async-promise-executor`     | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow the use of `arguments.caller` or `arguments.callee`                          | `no-caller`                     | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止 case 内声明                                                                      | `no-case-declarations`          | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| 禁止重写类                                                                            | `no-class-assign`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止与 -0 比较                                                                        | `no-compare-neg-zero`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止条件中赋值                                                                        | `no-cond-assign`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止重写 const                                                                        | `no-const-assign`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止常量条件                                                                          | `no-constant-condition`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow control characters in regular expressions                                    | `no-control-regex`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁用 debugger                                                                         | `no-debugger`                   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止 delete 变量                                                                      | `no-delete-var`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止重复函数参数                                                                      | `no-dupe-args`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止重复类成员                                                                        | `no-dupe-class-members`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止重复对象键                                                                        | `no-dupe-keys`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止重复 case                                                                         | `no-duplicate-case`             | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止空代码块                                                                          | `no-empty`                      | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| 禁止空字符类                                                                          | `no-empty-character-class`      | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止空解构                                                                            | `no-empty-pattern`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁用 eval                                                                             | `no-eval`                       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止重写异常参数                                                                      | `no-ex-assign`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止扩展原生类型                                                                      | `no-extend-native`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止多余的 bind                                                                       | `no-extra-bind`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| Disallow unnecessary boolean casts                                                    | `no-extra-boolean-cast`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| 禁止 case 穿透                                                                        | `no-fallthrough`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止重写函数声明                                                                      | `no-func-assign`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止改写全局对象                                                                      | `no-global-assign`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止隐式 eval                                                                         | `no-implied-eval`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止给导入赋值                                                                        | `no-import-assign`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow invalid regular expression strings in `RegExp` constructors                  | `no-invalid-regexp`             | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止异常空白字符                                                                      | `no-irregular-whitespace`       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow the use of the `__iterator__` property                                       | `no-iterator`                   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow labeled statements                                                           | `no-labels`                     | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow unnecessary nested blocks                                                    | `no-lone-blocks`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止精度丢失的数字                                                                    | `no-loss-of-precision`          | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止误导性字符类                                                                      | `no-misleading-character-class` | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| Disallow multiline strings                                                            | `no-multi-str`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow `new` operators outside of assignments or comparisons                        | `no-new`                        | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止 Function 构造函数                                                                | `no-new-func`                   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止 new 非构造函数                                                                   | `no-new-native-nonconstructor`  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow `new` operators with the `String`, `Number`, and `Boolean` objects           | `no-new-wrappers`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止把全局对象当函数调用                                                              | `no-obj-calls`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow calls to the `Object` constructor without an argument                        | `no-object-constructor`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| Disallow octal literals                                                               | `no-octal`                      | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow octal escape sequences in string literals                                    | `no-octal-escape`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow the use of the `__proto__` property                                          | `no-proto`                      | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止直接调用 Object.prototype 方法                                                    | `no-prototype-builtins`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| 禁止重复声明                                                                          | `no-redeclare`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止正则中多个空格                                                                    | `no-regex-spaces`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| Disallow assignment operators in `return` statements                                  | `no-return-assign`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止自我赋值                                                                          | `no-self-assign`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止自我比较                                                                          | `no-self-compare`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow comma operators                                                              | `no-sequences`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow identifiers from shadowing restricted names                                  | `no-shadow-restricted-names`    | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止稀疏数组                                                                          | `no-sparse-arrays`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止普通字符串中的模板占位符                                                          | `no-template-curly-in-string`   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止 super() 前用 this                                                                | `no-this-before-super`          | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止抛出字面量                                                                        | `no-throw-literal`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止未声明变量                                                                        | `no-undef`                      | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow initializing variables to `undefined`                                        | `no-undef-init`                 | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| 禁止易混淆的多行表达式                                                                | `no-unexpected-multiline`       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止未修改的循环条件                                                                  | `no-unmodified-loop-condition`  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止不可达代码                                                                        | `no-unreachable`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止只执行一次的循环                                                                  | `no-unreachable-loop`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止 finally 中的控制流                                                               | `no-unsafe-finally`             | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止关系运算符左侧取反                                                                | `no-unsafe-negation`            | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| Disallow unused expressions                                                           | `no-unused-expressions`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止未使用变量                                                                        | `no-unused-vars`                | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| 禁止先使用后定义                                                                      | `no-use-before-define`          | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止无用的正则反向引用                                                                | `no-useless-backreference`      | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止多余的 call/apply                                                                 | `no-useless-call`               | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止多余的 catch                                                                      | `no-useless-catch`              | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow unnecessary computed property keys in objects and classes                    | `no-useless-computed-key`       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| Disallow unnecessary constructors                                                     | `no-useless-constructor`        | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| 禁止多余的转义                                                                        | `no-useless-escape`             | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| 禁止无意义的重命名                                                                    | `no-useless-rename`             | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| Disallow redundant return statements                                                  | `no-useless-return`             | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| 禁用 var                                                                              | `no-var`                        | `overrides` | <span class="ls-sev ls-sev-warn">警告</span>  | ✅   | —    |
+| Disallow `void` operators                                                             | `no-void`                       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow `with` statements                                                            | `no-with`                       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 对象简写                                                                              | `object-shorthand`              | `overrides` | <span class="ls-sev ls-sev-warn">警告</span>  | ✅   | —    |
+| Enforce variables to be declared either together or separately in functions           | `one-var`                       | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| 优先 const                                                                            | `prefer-const`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| reject 须用 Error                                                                     | `prefer-promise-reject-errors`  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow use of the `RegExp` constructor in favor of regular expression literals      | `prefer-regex-literals`         | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| Enforce consistent param names and ordering when creating new promises.               | `promise/param-names`           | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Require symbol descriptions                                                           | `symbol-description`            | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Require or disallow Unicode byte order mark (BOM)                                     | `unicode-bom`                   | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| 用 isNaN 判断 NaN                                                                     | `use-isnan`                     | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| typeof 比较有效字符串                                                                 | `valid-typeof`                  | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| 禁止 Yoda 条件                                                                        | `yoda`                          | `overrides` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
 
 ## unicorn（22）
 
@@ -149,17 +148,17 @@
 
 ## TypeScript（9）
 
-| 规则名称                                              | 规则                                                 | 配置方式     | 级别                                          | 修复 | 建议 |
-| ----------------------------------------------------- | ---------------------------------------------------- | ------------ | --------------------------------------------- | ---- | ---- |
-| 禁止 Array 构造函数                                   | `@typescript-eslint/no-array-constructor`            | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
-| Disallow duplicate class members                      | `@typescript-eslint/no-dupe-class-members`           | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow literal numbers that lose precision          | `@typescript-eslint/no-loss-of-precision`            | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow variable redeclaration                       | `@typescript-eslint/no-redeclare`                    | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止未使用的表达式                                    | `@typescript-eslint/no-unused-expressions`           | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow unused private class members                 | `@typescript-eslint/no-unused-private-class-members` | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| 禁止未使用变量                                        | `@typescript-eslint/no-unused-vars`                  | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | ✅   |
-| Disallow the use of variables before they are defined | `@typescript-eslint/no-use-before-define`            | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
-| Disallow unnecessary constructors                     | `@typescript-eslint/no-useless-constructor`          | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
+| 规则名称                                              | 规则                                        | 配置方式     | 级别                                          | 修复 | 建议 |
+| ----------------------------------------------------- | ------------------------------------------- | ------------ | --------------------------------------------- | ---- | ---- |
+| Enforce consistent linebreak style for operators      | `@stylistic/operator-linebreak`             | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| 禁止 Array 构造函数                                   | `@typescript-eslint/no-array-constructor`   | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | —    |
+| Disallow duplicate class members                      | `@typescript-eslint/no-dupe-class-members`  | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow literal numbers that lose precision          | `@typescript-eslint/no-loss-of-precision`   | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow variable redeclaration                       | `@typescript-eslint/no-redeclare`           | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止未使用的表达式                                    | `@typescript-eslint/no-unused-expressions`  | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| 禁止未使用变量                                        | `@typescript-eslint/no-unused-vars`         | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | ✅   | ✅   |
+| Disallow the use of variables before they are defined | `@typescript-eslint/no-use-before-define`   | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | —    |
+| Disallow unnecessary constructors                     | `@typescript-eslint/no-useless-constructor` | `typescript` | <span class="ls-sev ls-sev-error">错误</span> | —    | ✅   |
 
 ## import-x（8）
 

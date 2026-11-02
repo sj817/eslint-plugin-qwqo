@@ -1,6 +1,6 @@
 # 配置项总览
 
-`@qwqo/eslint-config` 默认导出工厂函数 `lintspec(options)`，返回 ESLint 扁平配置数组。每个规则层都支持「布尔开关」或「子选项对象」两种写法，便于自由组合。
+`eslint-plugin-qwqo` 默认导出工厂函数 `qwqo(options)`，返回 ESLint 扁平配置数组。每个规则层都支持「布尔开关」或「子选项对象」两种写法，便于自由组合。
 
 ## 完整默认配置
 
@@ -8,9 +8,9 @@
 
 ```js
 // eslint.config.js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({
+export default qwqo({
   // —— 全局变量 ——
   node: false, // Node.js 全局：process、Buffer、__dirname…
   browser: false, // 浏览器全局：window、document、fetch…
@@ -65,7 +65,7 @@ export default lintspec({
 即 `node_modules` 等依赖与常见构建产物开箱即忽略。需要再忽略其它路径时用 `ignores`：
 
 ```js
-export default lintspec({
+export default qwqo({
   ignores: ['vendor/**', '**/*.gen.ts'],
 })
 ```
@@ -83,7 +83,7 @@ export default lintspec({
 | `perfectionist.objects`            | `false`         | 是否排序对象键；默认关闭，设为 `true` 开启对象键排序  |
 
 ```js
-export default lintspec({
+export default qwqo({
   node: true,
   typescript: { typeAware: true }, // 开启类型感知规则
   unicorn: { strict: true }, // 开启扩展规则；数字字面量格式规则仍关闭
@@ -101,17 +101,17 @@ export default lintspec({
 使用默认开启的基线层、import-x 与安全 Unicorn，再加上 Node 全局。
 
 ```js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({ node: true })
+export default qwqo({ node: true })
 ```
 
 ### 纯 Node + TypeScript 库
 
 ```js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({
+export default qwqo({
   node: true,
   typescript: true,
   perfectionist: true,
@@ -121,9 +121,9 @@ export default lintspec({
 ### Vue 3 + TypeScript 项目
 
 ```js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({
+export default qwqo({
   browser: true,
   typescript: true,
   vue: true,
@@ -134,9 +134,9 @@ export default lintspec({
 ### React + TypeScript 项目
 
 ```js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({
+export default qwqo({
   browser: true,
   typescript: true,
   react: true,
@@ -149,9 +149,9 @@ export default lintspec({
 开启类型感知规则、保留 NodeNext 的 `.js` 后缀，并把基线层限定到各包的 `src`。
 
 ```js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({
+export default qwqo({
   node: true,
   typescript: { typeAware: true },
   importX: {
@@ -167,10 +167,10 @@ export default lintspec({
 
 ## 组合顺序
 
-各层按固定顺序组合，[Stylistic 格式层](../layers/stylistic) 始终位于功能规则之后，`overrides` 优先级最高：
+各层按固定顺序组合。Neostandard 提供基线、格式和 TypeScript 规则，本包的尾随逗号规则置于可选功能层之后，`overrides` 优先级最高：
 
 ```
-基线层 → TypeScript → import-x → perfectionist → React → Vue → unicorn → Stylistic → overrides
+Neostandard → qwqo 基础策略 → import-x → perfectionist → React → Vue → unicorn → qwqo 格式扩展 → overrides
 ```
 
 每层仅作用于其目标文件类型（如 TypeScript 层仅作用于 `.ts`，Vue 层仅作用于 `.vue`），因此可安全地同时开启。
@@ -193,7 +193,7 @@ export default lintspec({
 任何单条规则都可以用 `overrides` 精确调整，优先级高于所有规则层：
 
 ```js
-export default lintspec({
+export default qwqo({
   typescript: true,
   overrides: {
     'no-console': 'error',

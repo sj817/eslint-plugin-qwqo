@@ -1,13 +1,13 @@
 import { ESLint, type Linter } from 'eslint'
 import { describe, expect, it } from 'vitest'
 
-import lintspec from '../src/index'
+import qwqo from '../src/index'
 
 async function format (code: string, filePath = 'sample.js'): Promise<string> {
   const eslint = new ESLint({
     fix: true,
     overrideConfigFile: true,
-    overrideConfig: lintspec({ typescript: filePath.endsWith('.ts') }) as Linter.Config[],
+    overrideConfig: qwqo({ typescript: filePath.endsWith('.ts') }) as Linter.Config[],
   })
   const [result] = await eslint.lintText(code, { filePath })
   return result.output ?? code

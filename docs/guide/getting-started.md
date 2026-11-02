@@ -3,7 +3,7 @@
 ## 安装
 
 ```bash
-pnpm add -D eslint @qwqo/eslint-config
+pnpm add -D eslint eslint-plugin-qwqo
 ```
 
 ## 配置
@@ -11,9 +11,9 @@ pnpm add -D eslint @qwqo/eslint-config
 新建 `eslint.config.js`：
 
 ```js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({ node: true, typescript: true })
+export default qwqo({ node: true, typescript: true })
 ```
 
 详见 [配置项总览](./options)。

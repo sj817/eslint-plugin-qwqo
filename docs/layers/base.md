@@ -1,6 +1,6 @@
 # 基线层
 
-规则全部为 ESLint 内置规则（不依赖任何插件），以 Neostandard 的社区基线为主，覆盖代码安全与潜在错误，**随任意配置默认启用**。
+基线直接来自 [Neostandard](https://github.com/neostandard/neostandard)，包含 ESLint 内置规则以及它启用的 Node.js、Promise 规则，覆盖代码安全与潜在错误，**随任意配置默认启用**。
 
 > 标记说明：🔧 可通过 `eslint --fix` 自动修复 · 💡 在编辑器中提供修复建议。
 
@@ -51,7 +51,7 @@ let count = 0
 ::: bad
 
 ```js
-let name = 'lintspec'
+let name = 'qwqo'
 ```
 
 :::
@@ -59,7 +59,7 @@ let name = 'lintspec'
 ::: good
 
 ```js
-const name = 'lintspec'
+const name = 'qwqo'
 ```
 
 :::
@@ -220,12 +220,12 @@ import { b } from './utils/b'
 
 ```js
 // eslint.config.js
-export default lintspec({
+export default qwqo({
   maxLines: 800, // 放宽到 800 行
   // maxLines: false, // 或彻底关闭
 })
 ```
 
 ::: tip
-基线层还包含大量安全相关规则（`no-eval`、`no-self-compare`、`no-unsafe-*`、`use-isnan` 等），完整列表见 [全部规则](../reference/rules) 或 [配置源码](https://github.com/sj817/lintspec/blob/main/packages/eslint-config/src/rules/base.ts)。
+基线层还包含大量安全相关规则（`no-eval`、`no-self-compare`、`no-unsafe-*`、`use-isnan` 等），完整列表见 [全部规则](../reference/rules) 或 [上游配置源码](https://github.com/neostandard/neostandard/blob/main/lib/configs/base.js)。
 :::

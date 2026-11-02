@@ -19,9 +19,9 @@ export function buildEslintConfig (answers: ScaffoldAnswers): string {
   else if (framework === 'vue') lines.push('  vue: true,')
   lines.push('  perfectionist: true,')
 
-  return `import lintspec from '@qwqo/eslint-config'
+  return `import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({
+export default qwqo({
 ${lines.join('\n')}
 })
 `
@@ -37,7 +37,7 @@ export const scaffoldScripts: Record<string, string> = {
 
 /** 需要安装的开发依赖。 */
 export function devDependencies (): string[] {
-  return ['eslint', '@qwqo/eslint-config']
+  return ['eslint', 'eslint-plugin-qwqo']
 }
 
 /** 支持的包管理器。 */

@@ -1,6 +1,6 @@
 # 简介
 
-Lintspec 是 [qwqo](https://github.com/sj817) 的一套 ESLint 共享规范，目标是用**一个函数**把代码质量与格式化标准统一收口，开箱即用又能自由组合。
+`eslint-plugin-qwqo` 是 [qwqo](https://github.com/sj817) 的一套 ESLint 共享规范，目标是用**一个函数**把代码质量与格式化标准统一收口，开箱即用又能自由组合。
 
 ## 它解决什么问题
 
@@ -11,13 +11,13 @@ Lintspec 是 [qwqo](https://github.com/sj817) 的一套 ESLint 共享规范，�
 
 ## 两个包
 
-- **`@qwqo/eslint-config`** —— 代码质量与格式化规范，默认导出工厂函数 `lintspec(options)`。
+- **`eslint-plugin-qwqo`** —— 代码质量与格式化规范，默认导出工厂函数 `qwqo(options)`。
 - **`create-qwqo-config`** —— 交互式生成配置、脚本和依赖。
 
 ## 设计理念
 
 - **统一入口**：检查和自动格式化都由 ESLint 完成。
-- **Neostandard 风格**：移植其无分号、单引号、自然的函数与运算符间距；Lintspec 额外对所有多行结构要求尾随逗号。
+- **Neostandard 基线**：直接依赖上游规则和格式风格，本包额外对所有多行结构要求尾随逗号。
 - **保守修复**：默认规则只负责格式和高置信度纠错，不迁移 API、重写控制流或替换数据结构。
 - **尊重换行**：主动写成多行的数组、调用参数和函数参数保持多行，只统一缩进与逗号。
 - **分层可选**：基线层和 Stylistic 层始终启用，其余规则层均可独立开启。

@@ -1,5 +1,5 @@
 {
-  "name": "lintspec-playground",
+  "name": "eslint-plugin-qwqo-playground",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -10,7 +10,7 @@
     "format:check": "eslint ."
   },
   "devDependencies": {
-    "@qwqo/eslint-config": "workspace:*",
+    "eslint-plugin-qwqo": "workspace:*",
     "eslint": "10.4.1"
   }
 }

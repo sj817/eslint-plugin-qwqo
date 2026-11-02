@@ -3,22 +3,22 @@
 基于 [eslint-plugin-import-x](https://github.com/un-ts/eslint-plugin-import-x)，校验导入的正确性。该层默认开启；启用 `typescript` 时会自动追加 TypeScript 解析设置。
 
 ```js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec()
+export default qwqo()
 ```
 
 不需要导入检查时可显式关闭：
 
 ```js
-export default lintspec({ importX: false })
+export default qwqo({ importX: false })
 ```
 
 TypeScript 项目会通过 `eslint-import-resolver-typescript` 读取 tsconfig。Monorepo 的根
 tsconfig 如果没有用 `references` 串联 workspace，请显式给出子项目配置：
 
 ```js
-export default lintspec({
+export default qwqo({
   typescript: true,
   importX: {
     project: ['apps/*/tsconfig.json', 'packages/*/tsconfig.json'],
@@ -54,7 +54,7 @@ import { config } from './config'
 如项目使用 NodeNext / 纯 ESM（运行时需要后缀），可关闭该约定：
 
 ```js
-export default lintspec({ importX: { extensions: false } })
+export default qwqo({ importX: { extensions: false } })
 ```
 
 ## 禁止重复导入（no-duplicates） <span class="ls-cap ignore-header">🔧</span>

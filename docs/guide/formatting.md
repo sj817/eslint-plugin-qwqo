@@ -1,6 +1,6 @@
 # 格式化
 
-Lintspec 由 ESLint 同时负责代码质量与格式化。运行一次即可：
+`eslint-plugin-qwqo` 由 ESLint 同时负责代码质量与格式化。运行一次即可：
 
 ```bash
 eslint . --fix
@@ -19,7 +19,7 @@ eslint . --fix
 
 ## 换行策略
 
-ESLint 的格式规则不是整棵语法树重排器。Lintspec 会统一缩进、空格、括号和尾随逗号，但不会因为表达式还没超过某个固定列宽，就擅自把作者主动写出的多行调用、数组或参数列表挤回一行。
+ESLint 的格式规则不是整棵语法树重排器。Neostandard 会统一缩进、空格和括号，本包额外检查尾随逗号；作者主动写出的多行调用、数组或参数列表仍保持多行。
 
 ```js
 const result = createResult(
@@ -40,7 +40,7 @@ ESLint 能胜任 JS、TS、JSX 与 Vue 脚本的日常格式化，但它不会�
 - `embeddedLanguageFormatting: 'off'`，不改写 Markdown 代码块；
 - `proseWrap: 'preserve'`，不主动重排作者的 Markdown 段落换行；
 - 忽略 `pnpm-lock.yaml` 和所有生成目录；
-- 非代码格式器只属于本仓库，不随 `@qwqo/eslint-config` 发布，也不由脚手架安装。
+- 非代码格式器只属于本仓库，不随 `eslint-plugin-qwqo` 发布，也不由脚手架安装。
 
 因此日常仍然只有一个入口，但不存在第二个工具覆盖 ESLint 代码排版的问题。
 

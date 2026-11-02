@@ -1,7 +1,7 @@
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({
+export default qwqo({
   node: true,
   typescript: true,
-  importX: { extensions: false },
+  importX: false,
 })

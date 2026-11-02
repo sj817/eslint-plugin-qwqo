@@ -13,15 +13,15 @@ TypeScript 层沿用 Neostandard 的做法：使用 TypeScript parser，并把 E
 因此开启 `typescript: true` 不会批量改写导入形式、命名、断言或模块写法。
 
 ```js
-export default lintspec({ typescript: true })
+export default qwqo({ typescript: true })
 ```
 
 ## 类型感知
 
-显式开启 `typeAware` 后，Lintspec 会使用项目的 tsconfig，并额外检查未处理的 Promise：
+显式开启 `typeAware` 后，本包会使用项目的 tsconfig，并额外检查未处理的 Promise：
 
 ```js
-export default lintspec({
+export default qwqo({
   typescript: { typeAware: true },
 })
 ```

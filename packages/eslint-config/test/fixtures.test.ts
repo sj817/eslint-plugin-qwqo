@@ -1,24 +1,24 @@
 import { ESLint, type Linter } from 'eslint'
 import { describe, expect, it } from 'vitest'
 
-import lintspec, { type LintspecOptions } from '../src/index'
+import qwqo, { type QwqoOptions } from '../src/index'
 
 /** 用指定配置对内联代码执行 lint，返回触发的规则 ID 列表。 */
-async function lint (options: LintspecOptions, filePath: string, code: string): Promise<string[]> {
+async function lint (options: QwqoOptions, filePath: string, code: string): Promise<string[]> {
   const eslint = new ESLint({
     overrideConfigFile: true,
-    overrideConfig: lintspec(options) as Linter.Config[],
+    overrideConfig: qwqo(options) as Linter.Config[],
   })
   const [result] = await eslint.lintText(code, { filePath })
   return result.messages.map(message => message.ruleId ?? `fatal:${message.message}`)
 }
 
 /** 用完整 fixer 处理内联代码，返回修复后的源码。 */
-async function fix (options: LintspecOptions, filePath: string, code: string): Promise<string> {
+async function fix (options: QwqoOptions, filePath: string, code: string): Promise<string> {
   const eslint = new ESLint({
     fix: true,
     overrideConfigFile: true,
-    overrideConfig: lintspec(options) as Linter.Config[],
+    overrideConfig: qwqo(options) as Linter.Config[],
   })
   const [result] = await eslint.lintText(code, { filePath })
   return result.output ?? code

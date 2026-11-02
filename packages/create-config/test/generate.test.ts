@@ -13,7 +13,7 @@ describe('buildEslintConfig', () => {
   it('Node + TypeScript 项目', () => {
     const answers: ScaffoldAnswers = { framework: 'none', typescript: true, environment: 'node' }
     const out = buildEslintConfig(answers)
-    expect(out).toContain("import lintspec from '@qwqo/eslint-config'")
+    expect(out).toContain("import qwqo from 'eslint-plugin-qwqo'")
     expect(out).toContain('node: true,')
     expect(out).toContain('typescript: true,')
     expect(out).not.toContain('importX:')
@@ -67,7 +67,7 @@ describe('installArgs', () => {
 
   it('依赖清单含共享配置与底层工具', () => {
     expect(deps).toContain('eslint')
-    expect(deps).toContain('@qwqo/eslint-config')
+    expect(deps).toContain('eslint-plugin-qwqo')
     expect(deps).toHaveLength(2)
   })
 })

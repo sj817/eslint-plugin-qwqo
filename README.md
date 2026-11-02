@@ -1,7 +1,7 @@
-# Lintspec
+# eslint-plugin-qwqo
 
-[![CI](https://github.com/sj817/lintspec/actions/workflows/ci.yml/badge.svg)](https://github.com/sj817/lintspec/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/@qwqo/eslint-config?label=eslint-config)](https://www.npmjs.com/package/@qwqo/eslint-config)
+[![CI](https://github.com/sj817/eslint-plugin-qwqo/actions/workflows/ci.yml/badge.svg)](https://github.com/sj817/eslint-plugin-qwqo/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/eslint-plugin-qwqo)](https://www.npmjs.com/package/eslint-plugin-qwqo)
 
 自用的 ESLint 共享规范：工厂式、分层、TypeScript 优先，并由 ESLint 统一负责代码质量与格式化。
 
@@ -9,7 +9,7 @@
 
 ## 包
 
-- `@qwqo/eslint-config` —— ESLint 代码质量与格式化规则
+- `eslint-plugin-qwqo` —— ESLint 代码质量与格式化规则
 - `create-qwqo-config` —— 交互式脚手架
 
 ## 快速开始
@@ -23,23 +23,23 @@ pnpm create qwqo-config
 或手动安装：
 
 ```bash
-pnpm add -D eslint @qwqo/eslint-config
+pnpm add -D eslint eslint-plugin-qwqo
 ```
 
 新建 `eslint.config.mjs`：
 
 ```js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({ node: true, typescript: true })
+export default qwqo({ node: true, typescript: true })
 ```
 
 每个功能层都是可选开关，格式层始终启用：
 
 ```js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({
+export default qwqo({
   node: true,
   browser: false,
   unicorn: true, // 默认仅启用 22 条安全纠错规则；strict 才启用扩展规则集
@@ -62,7 +62,7 @@ eslint . --fix    # 应用格式修复与默认启用的安全纠错
 pnpm format       # 先处理代码，再格式化仓库里的非代码文件
 ```
 
-格式风格移植自 Neostandard 0.14：2 空格缩进、单引号、无分号、函数名与括号之间留空格，并保留作者主动写出的合理多行布局。Lintspec 额外要求所有多行数组、对象、导入导出、函数参数和 TypeScript 结构使用尾随逗号。
+基础规则和格式风格直接来自 Neostandard 0.14；本包只叠加自己的规则。额外要求所有多行数组、对象、导入导出、函数参数和 TypeScript 结构使用尾随逗号。
 
 仓库自身的 Markdown、JSON、YAML 和 CSS 使用独立的非代码格式步骤。它通过明确的文件 glob 和 `.prettierignore` 与代码隔离，并关闭 Markdown 内嵌代码格式化，因此不会重新排版 JS/TS/Vue 或文档代码块。该工具不属于发布出去的共享配置，也不会由脚手架安装。
 

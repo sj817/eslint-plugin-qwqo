@@ -2,12 +2,12 @@
 layout: home
 
 hero:
-  name: Lintspec
+  name: eslint-plugin-qwqo
   text: 一个函数搞定 ESLint
   tagline: 代码质量与格式化统一收口，TypeScript / React / Vue 开箱即用。
   image:
     src: /logo.svg
-    alt: Lintspec logo
+    alt: qwqo logo
   actions:
     - theme: brand
       text: 快速开始
@@ -17,7 +17,7 @@ hero:
       link: /guide/formatting
     - theme: alt
       text: GitHub
-      link: https://github.com/sj817/lintspec
+      link: https://github.com/sj817/eslint-plugin-qwqo
 
 features:
   - icon: { src: /icons/zap.svg, width: 26, height: 26 }
@@ -37,7 +37,7 @@ features:
     details: 自动生成全部启用规则、级别、修复能力与配置入口。
   - icon: { src: /icons/code.svg, width: 26, height: 26 }
     title: TypeScript 源码
-    details: 全量 TypeScript 编写，tsdown 构建，提供完整类型声明与编辑器补全。
+    details: 本包的配置逻辑使用 TypeScript 编写，tsdown 构建，提供类型声明与编辑器补全。
 ---
 
 <div class="ls-stats">
@@ -51,9 +51,9 @@ features:
 
 ```js
 // eslint.config.js
-import lintspec from '@qwqo/eslint-config'
+import qwqo from 'eslint-plugin-qwqo'
 
-export default lintspec({
+export default qwqo({
   node: true,
   typescript: true,
   perfectionist: true,

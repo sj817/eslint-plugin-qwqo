@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 
 import eslintReact from '@eslint-react/eslint-plugin'
-import stylistic from '@stylistic/eslint-plugin'
+import { plugins as neostandardPlugins } from 'neostandard'
 import { builtinRules } from 'eslint/use-at-your-own-risk'
 import { rules as importRules } from 'eslint-plugin-import-x'
 import { rules as perfectionistRules } from 'eslint-plugin-perfectionist'
@@ -12,9 +12,9 @@ import unicorn from 'eslint-plugin-unicorn'
 import vue from 'eslint-plugin-vue'
 import tseslint from 'typescript-eslint'
 
-import lintspec from './dist/index.mjs'
+import qwqo from './dist/index.mjs'
 
-const config = lintspec({
+const config = qwqo({
   node: true,
   browser: true,
   typescript: true,
@@ -35,7 +35,9 @@ const metaFor = (rule) => {
   if (rule.startsWith('@eslint-react/')) {
     return eslintReact.rules[rule.slice(14)]?.meta ?? eslintReact.rules[rule]?.meta
   }
-  if (rule.startsWith('@stylistic/')) return stylistic.rules[rule.slice(11)]?.meta
+  if (rule.startsWith('@stylistic/')) return neostandardPlugins['@stylistic'].rules[rule.slice(11)]?.meta
+  if (rule.startsWith('n/')) return neostandardPlugins.n.rules[rule.slice(2)]?.meta
+  if (rule.startsWith('promise/')) return neostandardPlugins.promise.rules[rule.slice(8)]?.meta
   if (!rule.includes('/')) return builtinRules.get(rule)?.meta
 }
 
@@ -56,7 +58,7 @@ const ruleNames = JSON.parse(readFileSync(new URL('rule-names.json', import.meta
 const escapeHtml = text => text.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 const nameOf = rule => escapeHtml(ruleNames[rule] ?? metaFor(rule)?.docs?.description ?? '—')
 
-// 标出控制该规则的 lintspec() 选项。
+// 标出控制该规则的 qwqo() 选项。
 const optionOf = (rule, layer) => {
   if (rule === 'max-lines') return '`maxLines`'
   if (layer === '基线层') return '`overrides`'
@@ -77,16 +79,14 @@ const optionOf = (rule, layer) => {
 // 按配置块名称归类到各规则层。
 const layerOf = (name) => {
   if (!name) return null
-  if (name === 'qwqo/base') return '基线层'
+  if (name.startsWith('neostandard/style') || name.startsWith('qwqo/style')) return 'Stylistic'
+  if (name === 'neostandard/ts' || name.startsWith('qwqo/typescript')) return 'TypeScript'
+  if (name.startsWith('neostandard/') || name === 'qwqo/policy') return '基线层'
   if (name.startsWith('qwqo/unicorn')) return 'unicorn'
-  if (name.startsWith('typescript-eslint') || name.startsWith('qwqo/typescript')) {
-    return 'TypeScript'
-  }
   if (name.startsWith('qwqo/import')) return 'import-x'
   if (name.startsWith('qwqo/perfectionist')) return 'perfectionist'
   if (name.startsWith('qwqo/react')) return 'React'
   if (name.startsWith('vue/') || name.startsWith('qwqo/vue')) return 'Vue'
-  if (name.startsWith('qwqo/stylistic')) return 'Stylistic'
   return null
 }
 
@@ -127,7 +127,7 @@ let md = `# 全部规则
 
 本页由配置自动生成，列出每一层启用的全部规则。具体规则的 ❌/✅ 示例见各[规则层](../layers/base)页面。
 
-- **配置方式**：控制该规则的 \`lintspec()\` 选项；基线层规则只能通过 \`overrides\` 调整。
+- **配置方式**：控制该规则的 \`qwqo()\` 选项；基线层规则只能通过 \`overrides\` 调整。
 - **修复 / 建议**：✅ 修复 = 可通过 \`eslint --fix\` 自动修复；✅ 建议 = 在编辑器中提供修复建议。
 - **级别**：<span class="ls-sev ls-sev-error">错误</span> 报错并阻断；<span class="ls-sev ls-sev-warn">警告</span> 仅提示。
 `

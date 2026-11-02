@@ -10,7 +10,7 @@ React 层默认只启用明确的正确性检查，以及 React 官方 Hooks 规
 - `react-hooks/rules-of-hooks` 与 `react-hooks/exhaustive-deps`。
 
 ```js
-export default lintspec({
+export default qwqo({
   browser: true,
   react: true,
 })
