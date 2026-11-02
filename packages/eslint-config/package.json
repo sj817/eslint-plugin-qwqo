@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-qwqo",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "type": "module",
   "description": "qwqo ESLint config built on neostandard.",
   "license": "MIT",
