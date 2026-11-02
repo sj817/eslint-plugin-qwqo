@@ -29,6 +29,13 @@ describe('qwqo 工厂', () => {
     expect(names(qwqo({ vue: true }))).toContain('qwqo/style/vue')
   })
 
+  it('noStyle 关闭上游与 qwqo 的格式规则', () => {
+    const layers = names(qwqo({ noStyle: true, typescript: true, vue: true }))
+    expect(layers.some(name => name.startsWith('neostandard/style'))).toBe(false)
+    expect(layers.some(name => name.startsWith('qwqo/style'))).toBe(false)
+    expect(layers).toContain('neostandard/ts')
+  })
+
   it('unicorn 可关闭', () => {
     expect(names(qwqo({ unicorn: false }))).not.toContain('qwqo/unicorn')
   })

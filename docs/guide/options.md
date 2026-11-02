@@ -14,6 +14,7 @@ export default qwqo({
   // —— 全局变量 ——
   node: false, // Node.js 全局：process、Buffer、__dirname…
   browser: false, // 浏览器全局：window、document、fetch…
+  noStyle: false, // 交给 Prettier 排版时设为 true
 
   // —— 规则层（布尔开关 或 子选项对象）——
   unicorn: true, // 22 条高置信度纠错规则，默认开启
@@ -39,6 +40,7 @@ export default qwqo({
 | --------------- | ----------------------------------------------------------------- | --------------------------- | ---------------------------------------------------------- |
 | `node`          | `boolean`                                                         | `false`                     | 启用 Node.js 全局变量                                      |
 | `browser`       | `boolean`                                                         | `false`                     | 启用浏览器全局变量                                         |
+| `noStyle`       | `boolean`                                                         | `false`                     | 关闭上游与本包的格式规则，交给 Prettier 等工具             |
 | `unicorn`       | `boolean \| { strict? }`                                          | `true`                      | 启用 [unicorn](../layers/unicorn) 安全纠错层               |
 | `typescript`    | `boolean \| { typeAware? }`                                       | `false`                     | 启用 [TypeScript](../layers/typescript) 层                 |
 | `importX`       | `boolean \| { extensions?, project?, noWarnOnMultipleProjects? }` | `true`                      | 启用 [import-x](../layers/import) 导入管理层               |
@@ -49,6 +51,9 @@ export default qwqo({
 | `files`         | `string[]`                                                        | `['**/*.{js,mjs,cjs,jsx}']` | 基线层适用的文件匹配模式                                   |
 | `ignores`       | `string[]`                                                        | `[]`                        | 在默认忽略项之后追加的忽略模式                             |
 | `overrides`     | `Linter.RulesRecord`                                              | `{}`                        | 优先级最高的规则覆盖                                       |
+
+`noStyle: true` 会关闭 Neostandard 与 qwqo 的格式规则，适合已经使用 Prettier 的项目。
+`plugins` 具名导出提供与基线相同的 neostandard 插件实例，可在项目配置中追加类型规则。
 
 ## 默认忽略
 

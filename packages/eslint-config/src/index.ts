@@ -35,6 +35,8 @@ export interface PerfectionistOptions {
 export interface QwqoOptions {
   node?: boolean
   browser?: boolean
+  /** Leave formatting to another tool such as Prettier. @default false */
+  noStyle?: boolean
   unicorn?: boolean | UnicornOptions
   typescript?: boolean | TypeScriptOptions
   importX?: boolean | ImportXOptions
@@ -65,6 +67,7 @@ export default function qwqo (options: QwqoOptions = {}): Linter.Config[] {
   const {
     node = false,
     browser = false,
+    noStyle = false,
     unicorn = true,
     typescript = false,
     importX = true,
@@ -87,7 +90,7 @@ export default function qwqo (options: QwqoOptions = {}): Linter.Config[] {
 
   const config: Linter.Config[] = [
     { name: 'qwqo/ignores', ignores: [...commonIgnores, ...ignores] },
-    ...neostandard({ ts: typescriptEnabled, files, env }),
+    ...neostandard({ ts: typescriptEnabled, files, env, noStyle }),
     {
       name: 'qwqo/policy',
       files: baseFiles,
@@ -139,19 +142,21 @@ export default function qwqo (options: QwqoOptions = {}): Linter.Config[] {
     config.push(...unicornPreset(lintFiles, typeof unicorn === 'object' && unicorn.strict === true))
   }
 
-  config.push({
-    name: 'qwqo/style',
-    files: lintFiles,
-    plugins: { '@stylistic': neostandardPlugins['@stylistic'] },
-    rules: { '@stylistic/comma-dangle': ['error', commaDangle] },
-  })
-  if (vue) {
+  if (!noStyle) {
     config.push({
-      name: 'qwqo/style/vue',
-      files: GLOB_VUE,
+      name: 'qwqo/style',
+      files: lintFiles,
       plugins: { '@stylistic': neostandardPlugins['@stylistic'] },
       rules: { '@stylistic/comma-dangle': ['error', commaDangle] },
     })
+    if (vue) {
+      config.push({
+        name: 'qwqo/style/vue',
+        files: GLOB_VUE,
+        plugins: { '@stylistic': neostandardPlugins['@stylistic'] },
+        rules: { '@stylistic/comma-dangle': ['error', commaDangle] },
+      })
+    }
   }
 
   if (Object.keys(overrides).length > 0) {
@@ -161,3 +166,4 @@ export default function qwqo (options: QwqoOptions = {}): Linter.Config[] {
 }
 
 export type { Linter } from 'eslint'
+export { plugins } from 'neostandard'

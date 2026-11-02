@@ -34,6 +34,9 @@ import qwqo from 'eslint-plugin-qwqo'
 export default qwqo({ node: true, typescript: true })
 ```
 
+项目使用 Prettier 时设置 `noStyle: true`；需要加自己的类型规则时，可从本包导入
+`plugins`，与基线共用同一份 neostandard 插件实例。
+
 每个功能层都是可选开关，格式层始终启用：
 
 ```js

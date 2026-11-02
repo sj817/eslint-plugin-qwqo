@@ -38,5 +38,11 @@ jobs:
       - name: Publish to npm (trusted publishing, no token)
         run: |
           for pkg in eslint-config create-config; do
+            name=$(node -p "require('./packages/$pkg/package.json').name")
+            version=$(node -p "require('./packages/$pkg/package.json').version")
+            if npm view "$name@$version" version >/dev/null 2>&1; then
+              echo "$name@$version is already published"
+              continue
+            fi
             ( cd "packages/$pkg" && npm publish --access public --ignore-scripts )
           done
