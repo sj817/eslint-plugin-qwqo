@@ -43,7 +43,7 @@ describe('buildEslintConfig', () => {
 
 describe('detectPackageManager', () => {
   it('从 user agent 识别', () => {
-    expect(detectPackageManager('pnpm/10.0.0 npm/? node/v22')).toBe('pnpm')
+    expect(detectPackageManager('pnpm/9.15.9 npm/? node/v22')).toBe('pnpm')
     expect(detectPackageManager('yarn/4.0.0 npm/? node/v22')).toBe('yarn')
     expect(detectPackageManager('bun/1.0.0')).toBe('bun')
     expect(detectPackageManager('npm/10.0.0 node/v22')).toBe('npm')
